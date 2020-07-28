@@ -142,7 +142,7 @@ class _PazirandeganState extends State<Pazirandegan>
                       dotHeight: 10.0,
                       dotWidth: 10.0,
                       dotColor: Color(0xff290d66),
-                      activeDotColor: Color(0xffFFA400)),
+                      activeDotColor: Colors.yellow.shade700),
                 ),
               ),
             )

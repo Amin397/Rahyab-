@@ -97,7 +97,7 @@ with TickerProviderStateMixin{
           scale: animation,
           child: FloatingActionButton(
             elevation: 8,
-            backgroundColor: Color(0xffFFA400),
+            backgroundColor: Colors.yellow.shade700,
             child: Icon(
               Icons.home,
               color: Colors.white,
@@ -114,7 +114,7 @@ with TickerProviderStateMixin{
           icons: iconList,
           backgroundColor: Color(0xff290d66),
           activeIndex: _bottomNavIndex,
-          activeColor: Color(0xffFFA400),
+          activeColor: Colors.yellow.shade700,
           splashColor: Colors.white,
           inactiveColor: Colors.white,
           notchAndCornersAnimation: animation,

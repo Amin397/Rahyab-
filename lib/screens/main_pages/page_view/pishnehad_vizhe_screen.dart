@@ -16,6 +16,11 @@ class _PishnehadVizheState extends State<PishnehadVizhe> {
           height: size.height,
           width: size.width,
           color: Colors.yellow,
+          child: Center(
+            child: Text('پیشنهاد ویژه' , style: TextStyle(
+              color: Colors.black , fontSize: 20.0
+            ),),
+          ),
         ),
       ),
     );
