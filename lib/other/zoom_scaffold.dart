@@ -387,7 +387,7 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
                   Icon(
                     icon,
                     size: 80.0,
-                    color: Colors.black,
+                    color: Color(0xffFFA400),
                   ),
                   SizedBox(
                     height: 10.0,
@@ -397,7 +397,7 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
                     style: TextStyle(
                         fontFamily: 'iranSance',
                         fontSize: 18.0,
-                        color: Colors.black,
+                        color: Color(0xffFFA400),
                         fontWeight: FontWeight.w600),
                   ),
                 ],
