@@ -14,7 +14,7 @@ class _Page3State extends State<Page3> {
         body: Hero(
           tag: "background_color",
           child: Container(
-            color: Colors.white,
+            color: Colors.red,
           ),
         ),
       ),

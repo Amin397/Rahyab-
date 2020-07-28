@@ -1,14 +1,12 @@
 import 'package:circle_list/circle_list.dart';
-import 'package:circle_wheel_scroll/circle_wheel_scroll_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:rahyab/screens/pages/page1.dart';
-import 'package:rahyab/screens/pages/page2.dart';
-import 'package:rahyab/screens/pages/page3.dart';
-import 'package:titled_navigation_bar/titled_navigation_bar.dart';
+import 'package:rahyab/screens/main_pages/HomePazirandegan.dart';
+import 'package:rahyab/screens/main_pages/page2.dart';
+import 'package:rahyab/screens/main_pages/page3.dart';
+import 'package:rahyab/screens/main_pages/page4.dart';
 
 class ZoomScaffold extends StatefulWidget {
   final Widget menuScreen;
@@ -75,12 +73,8 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
   ];
 
   List pages = [
-    Page1(),
+    HomePazirandegan(),
     Page2(),
-    Page3(),
-    Page1(),
-    Page2(),
-    Page1(),
     Page3(),
   ];
 
@@ -154,7 +148,7 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
                       origin: Offset(0, 0),
                       children: List.generate(7, (index) {
                         return Items(
-                            index, icons[index], pages[index], name[index]);
+                            index, icons[index], name[index]);
                       }),
                     ),
                   ),
@@ -189,12 +183,12 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
                       onTap: () {
                         if(!isCollapsed){
                           _animationController
-                            ..duration = Duration(seconds: 2)
+                            ..duration = Duration(milliseconds:1500 )
                             ..forward();
                           Provider.of<MenuController>(context, listen: true).toggle();
                         }else{
                           _animationController
-                            ..duration = Duration(seconds: 2)
+                            ..duration = Duration(milliseconds: 1500)
                             ..reverse();
                           Provider.of<MenuController>(context, listen: true).toggle();
                         }
@@ -344,13 +338,40 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
 
   bool itemSelected = false;
 
-  Widget centerWidget([icon, pages, name]) {
+  Widget centerWidget([icon, name , index]) {
     return (!itemSelected)
         ? Container()
         : GestureDetector(
-            onTap: () {
+            onTap: (){
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (BuildContext context) => pages));
+                  MaterialPageRoute(builder: (BuildContext context){
+                    switch(index){
+                      case 0:{
+                        return HomePazirandegan();
+                      }
+                      case 1:{
+                        return HomePazirandegan();
+                      }
+                      case 2:{
+                        return HomePazirandegan();
+                      }
+                      case 3:{
+                        return Page2();
+                      }
+                      case 4:{
+                        return HomePazirandegan();
+                      }
+                      case 5:{
+                        return Page3();
+                      }
+                      case 6:{
+                        return Page4();
+                      }
+                    }
+                    return null;
+                  }
+                  )
+              );
             },
             child: Container(
               height: double.infinity,
@@ -387,11 +408,11 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
 
   Widget amin;
 
-  Widget Items(index, icons, pages, name) {
+  Widget Items(index, icons, name) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          amin = centerWidget(icons, pages, name);
+          amin = centerWidget(icons, name , index);
           itemSelected = true;
         });
 //        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => pages));
@@ -544,7 +565,7 @@ class MenuController extends ChangeNotifier {
     this.vsync,
   }) : _animationController = new AnimationController(vsync: vsync) {
     _animationController
-      ..duration = const Duration(milliseconds: 400)
+      ..duration = const Duration(milliseconds: 600)
       ..addListener(() {
         notifyListeners();
       })

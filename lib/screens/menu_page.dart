@@ -27,7 +27,7 @@ class MenuScreen extends StatelessWidget {
         textDirection: TextDirection.rtl,
         child: Container(
           padding: EdgeInsets.only(top: 62, bottom: 8, left: size.width / 2.9),
-          color: Color(0xff00a5b8),
+          color: Color(0xff290d66),
           child: Column(
             children: <Widget>[
               _buildMenuProfilePic(size),

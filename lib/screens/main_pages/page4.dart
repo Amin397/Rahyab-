@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Page1 extends StatefulWidget {
+class Page4 extends StatefulWidget {
   @override
-  _Page1State createState() => _Page1State();
+  _Page4State createState() => _Page4State();
 }
 
-class _Page1State extends State<Page1> {
+class _Page4State extends State<Page4> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -14,7 +14,7 @@ class _Page1State extends State<Page1> {
         body: Hero(
           tag: "background_color",
           child: Container(
-            color: Colors.white,
+            color: Colors.yellow,
           ),
         ),
       ),
