@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import 'pazirandegan_items_detailes/item_details_Screen.dart';
 
 class Pazirandegan extends StatefulWidget {
   @override
@@ -73,6 +76,11 @@ class _PazirandeganState extends State<Pazirandegan>
 
   @override
   void initState() {
+    final systemTheme = SystemUiOverlayStyle.light.copyWith(
+      systemNavigationBarColor: Color(0xff290d66),
+      systemNavigationBarIconBrightness: Brightness.light,
+    );
+    SystemChrome.setSystemUIOverlayStyle(systemTheme);
     pageController = PageController(initialPage: 1);
     super.initState();
   }
@@ -170,11 +178,11 @@ class _PazirandeganState extends State<Pazirandegan>
   Widget _buildItemsOfGridView(indexG, size) {
     return InkWell(
       onTap: () {
-//        Navigator.push(
-//            context,
-//            PageTransition(
-//                type: PageTransitionType.upToDown,
-//                child: ItemsDetails(texts[indexG], icons[indexG])));
+        Navigator.push(
+            context,
+            PageTransition(
+                type: PageTransitionType.upToDown,
+                child: ItemsDetails(texts[indexG], icons[indexG])));
       },
       child: Column(
         children: <Widget>[

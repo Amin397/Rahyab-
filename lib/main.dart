@@ -10,6 +10,11 @@ import 'screens/sign_in_screen.dart';
 import 'screens/splash.dart';
 
 void main(){
+  final systemTheme = SystemUiOverlayStyle.light.copyWith(
+    systemNavigationBarColor: Color(0xff290d66),
+    systemNavigationBarIconBrightness: Brightness.light,
+  );
+  SystemChrome.setSystemUIOverlayStyle(systemTheme);
   runApp(
       LoadingProvider(
         loadingWidgetBuilder: (ctx, data) {

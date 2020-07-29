@@ -33,6 +33,7 @@ with TickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
+
     final systemTheme = SystemUiOverlayStyle.light.copyWith(
       systemNavigationBarColor: Color(0xff290d66),
       systemNavigationBarIconBrightness: Brightness.light,
@@ -70,6 +71,13 @@ with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
+
+    final systemTheme = SystemUiOverlayStyle.light.copyWith(
+      systemNavigationBarColor: Color(0xff290d66),
+      systemNavigationBarIconBrightness: Brightness.light,
+    );
+    SystemChrome.setSystemUIOverlayStyle(systemTheme);
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
