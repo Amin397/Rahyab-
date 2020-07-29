@@ -7,6 +7,10 @@ import 'package:rahyab/screens/main_pages/page_view/pishnehad_vizhe_screen.dart'
 import 'package:rahyab/screens/main_pages/page_view/vs_wallet_screen.dart';
 
 class HomePazirandegan extends StatefulWidget {
+
+  int index_screen;
+  HomePazirandegan([this.index_screen]);
+
   @override
   _HomePazirandeganState createState() => _HomePazirandeganState();
 }
@@ -14,7 +18,6 @@ class HomePazirandegan extends StatefulWidget {
 class _HomePazirandeganState extends State<HomePazirandegan>
 with TickerProviderStateMixin{
 
-  var _bottomNavIndex = 0;
   AnimationController _animationController;
   Animation<double> animation;
   CurvedAnimation curve;
@@ -58,12 +61,11 @@ with TickerProviderStateMixin{
           () => _animationController.forward(),
     );
 
-    _pageController = PageController(initialPage: _bottomNavIndex);
+    _pageController = PageController(initialPage: widget.index_screen);
   }
 
   void onTabTapped(int index) {
-    _pageController.animateToPage(index ,
-        curve: Curves.slowMiddle, duration: new Duration(milliseconds: 250));
+    _pageController.jumpToPage(index);
   }
 
   @override
@@ -72,18 +74,11 @@ with TickerProviderStateMixin{
       textDirection: TextDirection.rtl,
       child: Scaffold(
         extendBody: true,
-//        appBar: AppBar(
-//          title: Text(
-//            'amin',
-//            style: TextStyle(color: Colors.white),
-//          ),
-//          backgroundColor: Color(0xff860d9b),
-//        ),
         body: PageView(
           controller: _pageController,
           onPageChanged: (page){
             setState(() {
-              _bottomNavIndex = page;
+              widget.index_screen = page;
             });
           },
           children: <Widget>[
@@ -113,19 +108,19 @@ with TickerProviderStateMixin{
         bottomNavigationBar: AnimatedBottomNavigationBar(
           icons: iconList,
           backgroundColor: Color(0xff290d66),
-          activeIndex: _bottomNavIndex,
+          activeIndex: widget.index_screen,
           activeColor: Colors.yellow.shade700,
           splashColor: Colors.white,
           inactiveColor: Colors.white,
           notchAndCornersAnimation: animation,
-          splashSpeedInMilliseconds: 300,
+          splashSpeedInMilliseconds: 350,
           notchSmoothness: NotchSmoothness.softEdge,
           gapLocation: GapLocation.center,
           leftCornerRadius: 32,
           rightCornerRadius: 32,
           onTap: (index) {
             setState(() {
-              _bottomNavIndex = index;
+              widget.index_screen = index;
               onTabTapped(index);
               print(index);
             });

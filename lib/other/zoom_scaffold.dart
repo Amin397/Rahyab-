@@ -354,15 +354,15 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
                 switch (index) {
                   case 0:
                     {
-                      return HomePazirandegan();
+                      return HomePazirandegan(index);
                     }
                   case 1:
                     {
-                      return HomePazirandegan();
+                      return HomePazirandegan(index);
                     }
                   case 2:
                     {
-                      return HomePazirandegan();
+                      return HomePazirandegan(index);
                     }
                   case 3:
                     {
@@ -370,7 +370,7 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
                     }
                   case 4:
                     {
-                      return HomePazirandegan();
+                      return HomePazirandegan(index);
                     }
                   case 5:
                     {
