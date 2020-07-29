@@ -147,8 +147,7 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
                       rotateMode: RotateMode.allRotate,
                       origin: Offset(0, 0),
                       children: List.generate(7, (index) {
-                        return Items(
-                            index, icons[index], name[index]);
+                        return Items(index, icons[index], name[index]);
                       }),
                     ),
                   ),
@@ -172,128 +171,135 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                padding: EdgeInsets.only(top: (size.height * .11) * .4),
-                width: size.width,
-                height: size.height * .2,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        if(!isCollapsed){
-                          _animationController
-                            ..duration = Duration(milliseconds:1500 )
-                            ..forward();
-                          Provider.of<MenuController>(context, listen: true).toggle();
-                        }else{
-                          _animationController
-                            ..duration = Duration(milliseconds: 1500)
-                            ..reverse();
-                          Provider.of<MenuController>(context, listen: true).toggle();
-                        }
-                        setState(() {
-                          isCollapsed = !isCollapsed;
-                        });
-                      },
-                      child: Container(
-                        height: (!isCollapsed) ? 60.0 : 100.0,
-                        width: (!isCollapsed) ? 60.0 : 100.0,
-                        child: Lottie.asset(
-                          'assets/anim/arrow.json',
-                          controller: _animationController,
-                          fit: BoxFit.contain
+                  padding: EdgeInsets.only(top: (size.height * .11) * .4),
+                  width: size.width,
+                  height: size.height * .2,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () {
+                          if (!isCollapsed) {
+                            _animationController
+                              ..duration = Duration(milliseconds: 1500)
+                              ..forward();
+                            Provider.of<MenuController>(context, listen: true)
+                                .toggle();
+                          } else {
+                            _animationController
+                              ..duration = Duration(milliseconds: 1500)
+                              ..reverse();
+                            Provider.of<MenuController>(context, listen: true)
+                                .toggle();
+                          }
+                          setState(() {
+                            isCollapsed = !isCollapsed;
+                          });
+                        },
+                        child: Container(
+                          height: (!isCollapsed) ? 60.0 : 100.0,
+                          width: (!isCollapsed) ? 60.0 : 100.0,
+                          child: Lottie.asset('assets/anim/arrow.json',
+                              controller: _animationController,
+                              fit: BoxFit.contain),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.all(5.0),
-                              width: size.width * .15,
-                              height: size.height * .2,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black26, spreadRadius: 1.2, blurRadius: 5.0)
-                                  ],
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white, width: 2.0),
-                                  image: DecorationImage(
-                                      fit: BoxFit.contain,
-                                      image: Image.asset('assets/images/avatar.png').image)),
-                            ),
-                            Expanded(
+                      Expanded(
+                        child: Container(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                margin: EdgeInsets.all(5.0),
+                                width: size.width * .15,
+                                height: size.height * .2,
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black26,
+                                          spreadRadius: 1.2,
+                                          blurRadius: 5.0)
+                                    ],
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                        color: Colors.white, width: 2.0),
+                                    image: DecorationImage(
+                                        fit: BoxFit.contain,
+                                        image: Image.asset(
+                                                'assets/images/avatar.png')
+                                            .image)),
+                              ),
+                              Expanded(
                                 flex: 1,
                                 child: Container(
-                                      width: size.width * .75,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                  width: size.width * .75,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        'مصطفی براتی',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14.0,
+                                            fontFamily: 'iranSance'),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
-                                            'مصطفی براتی',
+                                            'کد عضویت: ',
                                             style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14.0,
-                                                fontFamily: 'iranSance'),
+                                                fontFamily: 'iranSance',
+                                                fontSize: 8.0,
+                                                color: Colors.white60),
                                           ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
-                                                'کد عضویت: ',
-                                                style: TextStyle(
-                                                    fontFamily: 'iranSance',
-                                                    fontSize: 8.0,
-                                                    color: Colors.white60),
-                                              ),
-                                              Text(
-                                                'ba45124845',
-                                                style: TextStyle(
-                                                  fontSize: 12.0,
-                                                  color: Colors.white,
-                                                  fontFamily: 'IRANSans',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
-                                                'موجودی: ',
-                                                style: TextStyle(
-                                                    fontFamily: 'iranSance',
-                                                    fontSize: 8.0,
-                                                    color: Colors.white60),
-                                              ),
-                                              Text(
-                                                '500.000',
-                                                style: TextStyle(
-                                                  fontSize: 12.0,
-                                                  color: Colors.white,
-                                                  fontFamily: 'IRANSans',
-                                                ),
-                                              ),
-                                            ],
+                                          Text(
+                                            'ba45124845',
+                                            style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.white,
+                                              fontFamily: 'IRANSans',
+                                            ),
                                           ),
                                         ],
                                       ),
-                                    ),
-                            )
-                          ],
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'موجودی: ',
+                                            style: TextStyle(
+                                                fontFamily: 'iranSance',
+                                                fontSize: 8.0,
+                                                color: Colors.white60),
+                                          ),
+                                          Text(
+                                            '500.000',
+                                            style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.white,
+                                              fontFamily: 'IRANSans',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    )
-                  ],
-                )
-              ),
+                      )
+                    ],
+                  )),
             ),
           ],
         )
@@ -338,39 +344,45 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
 
   bool itemSelected = false;
 
-  Widget centerWidget([icon, name , index]) {
+  Widget centerWidget([icon, name, index]) {
     return (!itemSelected)
         ? Container()
         : GestureDetector(
-            onTap: (){
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (BuildContext context){
-                    switch(index){
-                      case 0:{
-                        return HomePazirandegan();
-                      }
-                      case 1:{
-                        return HomePazirandegan();
-                      }
-                      case 2:{
-                        return HomePazirandegan();
-                      }
-                      case 3:{
-                        return Page2();
-                      }
-                      case 4:{
-                        return HomePazirandegan();
-                      }
-                      case 5:{
-                        return Page3();
-                      }
-                      case 6:{
-                        return Page4();
-                      }
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                switch (index) {
+                  case 0:
+                    {
+                      return HomePazirandegan();
                     }
-                    return null;
-                  }
-                  )
+                  case 1:
+                    {
+                      return HomePazirandegan();
+                    }
+                  case 2:
+                    {
+                      return HomePazirandegan();
+                    }
+                  case 3:
+                    {
+                      return Page2();
+                    }
+                  case 4:
+                    {
+                      return HomePazirandegan();
+                    }
+                  case 5:
+                    {
+                      return Page3();
+                    }
+                  case 6:
+                    {
+                      return Page4();
+                    }
+                }
+                return null;
+              })
               );
             },
             child: Container(
@@ -412,7 +424,7 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
     return GestureDetector(
       onTap: () {
         setState(() {
-          amin = centerWidget(icons, name , index);
+          amin = centerWidget(icons, name, index);
           itemSelected = true;
         });
 //        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => pages));
@@ -443,9 +455,7 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
       decoration:
           BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8.0))),
       child: Row(
-        children: <Widget>[
-
-        ],
+        children: <Widget>[],
       ),
     );
   }
