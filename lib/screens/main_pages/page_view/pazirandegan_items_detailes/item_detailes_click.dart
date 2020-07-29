@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../pazirandegan_screen.dart';
+import 'main_details_screen.dart';
 
 class ItemDetailsClick extends StatefulWidget {
   String parentName;
@@ -56,7 +56,6 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
 
   @override
   Widget build(BuildContext context) {
-
     final systemTheme = SystemUiOverlayStyle.light.copyWith(
       systemNavigationBarColor: Color(0xff290d66),
       systemNavigationBarIconBrightness: Brightness.light,
@@ -71,10 +70,10 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
           backgroundColor: Color(0xff290d66),
-          title: Text('${widget.parentName} / ${widget.switchName}' , style: TextStyle(
-            fontSize: 14.0,
-            fontFamily: 'IRANSans'
-          ),),
+          title: Text(
+            '${widget.parentName} / ${widget.switchName}',
+            style: TextStyle(fontSize: 14.0, fontFamily: 'IRANSans'),
+          ),
         ),
         body: Container(
           height: size.height,
@@ -89,9 +88,7 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
                 width: size.width,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset('assets/images/baner1.jpg').image)),
+                    color: Color(0xff290d66)),
               ),
               Expanded(
                 child: Container(
@@ -109,10 +106,10 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
                             bottom: size.height * .03),
                         child: InkWell(
                           onTap: () {
-//                            Navigator.of(context).push(
-//                                MaterialPageRoute(
-//                                    builder: (BuildContext context) =>
-//                                        MainDetailScreen(listDet[index].name , listDet[index].imagePath , listDet[index].description)));
+                            Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        MainDetailScreen(listDet[index].name , listDet[index].imagePath , listDet[index].description)));
                           },
                           child: _buildListViewIcons(context, index),
                         ),

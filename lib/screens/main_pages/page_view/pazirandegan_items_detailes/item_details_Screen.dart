@@ -58,10 +58,9 @@ class _ItemsDetailsState extends State<ItemsDetails>
                 height: size.height * .2,
                 width: size.width,
                 decoration: BoxDecoration(
+                  color: Color(0xff290d66),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset('assets/images/baner1.jpg').image)),
+                    ),
               ),
               Container(
                 height: size.height * .55,
