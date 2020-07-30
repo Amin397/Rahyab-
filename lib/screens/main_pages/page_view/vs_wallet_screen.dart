@@ -72,11 +72,11 @@ class _VsWalletState extends State<VsWallet> {
       child: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.symmetric(horizontal: size.width * .05),
+            padding: EdgeInsets.only(top: size.height * .06),
             width: size.width,
             height: size.height * .1,
             child: Align(
-              alignment: Alignment.centerRight,
+              alignment: Alignment.center,
               child: Text(
                 ' کیف پول مجازی ',
                 style: TextStyle(

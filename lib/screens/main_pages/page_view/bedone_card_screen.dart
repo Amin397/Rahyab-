@@ -57,7 +57,7 @@ with TickerProviderStateMixin{
                           String scanning = await BarcodeScanner.scan();
                           setState(() {
                             qrScanner = scanning;
-                            _launchURL();
+//                            _launchURL();
                             print(qrScanner.toString());
                           });
                         },

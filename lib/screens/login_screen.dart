@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 padding: EdgeInsets.only(top: size.height * .05),
                 width: size.width,
-                height: size.height * .35,
+                height: size.height * .5,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   physics: BouncingScrollPhysics(),
                   child: Container(
                       width: size.width,
-                      height: size.height * .7,
+                      height: size.height * .55,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -118,82 +118,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: EdgeInsets.symmetric(
                             horizontal: size.width * .05,
                             vertical: (size.height * .7) * .05),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: (size.height * .7) * .05),
-                              width: size.width,
-                              height: (size.height * .7) * .1,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.blue.shade100,
-                                        spreadRadius: 2,
-                                        blurRadius: 6.0)
-                                  ],
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0))),
-                              child: Center(
-                                child: TextField(
-                                  maxLines: 1,
-                                  controller: username,
-                                  textAlign: TextAlign.center,
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'نام کاربری',
-                                      hintStyle: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 14.0
-                                      )),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: (size.height * .7) * .05),
-                              width: size.width,
-                              height: (size.height * .7) * .1,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.blue.shade100,
-                                        spreadRadius: 2,
-                                        blurRadius: 6.0)
-                                  ],
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0))),
-                              child: Center(
-                                child: TextField(
-                                  maxLines: 1,
-                                  controller: password,
-                                  textAlign: TextAlign.center,
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'رمز عبور',
-                                      hintStyle: TextStyle(
-                                          fontSize: 14.0,
-                                          color: Colors.grey, height: 1)),
-                                ),
-                              ),
-                            ),
-                            Divider(),
-                            FlatButton(
-                              onPressed: (){
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
 
-                              },
-                              child: Text('بازیابی رمز عبور' , style: TextStyle(
-                                color: Colors.blueAccent,
-                                fontSize: 12.0
-                              ),),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: (size.height * .7) * .1 , left: size.width * .1 , right:  size.width * .1 ),
-                              child: RaisedButton(
+                              textField(size, username, false, false, 'شماره موبایل'),
+                              textField(size, password, false, true , 'رمز عبور'),
+
+                              Divider(),
+                              FlatButton(
                                 onPressed: (){
+
+                                },
+                                child: Text('بازیابی رمز عبور' , style: TextStyle(
+                                    color: Colors.blueAccent,
+                                    fontSize: 12.0
+                                ),),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: (size.height * .7) * .1 , left: size.width * .1 , right:  size.width * .1 ),
+                                child: RaisedButton(
+                                  onPressed: (){
 //                                  showLoadingDialog();
 //                                  makePostRequest(
 //                                      'http://demo.offerlee.ir/Customers/API/login',
@@ -204,46 +150,85 @@ class _LoginScreenState extends State<LoginScreen> {
 //                                      }).then((value) async {
 //                                    if(value['result'] == 'success'){
 //                                      hideLoadingDialog();
-                                      Navigator.pushReplacement(
-                                          context,
-                                          PageTransition(
-                                              type: PageTransitionType.upToDown, child: MyHomePage()));
+                                    Navigator.pushReplacement(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.upToDown, child: MyHomePage()));
 //                                    }else{
 //                                      hideLoadingDialog();
 //                                      print('amin');
 //                                    }
 //                                  });
-                                },
-                                splashColor: Colors.white,
-                                color: Color(0xff860d9b). withOpacity(.85),
-                                child: Center(
-                                  child: Text('ورود' , style: TextStyle(
-                                    fontSize: 16.0,fontFamily: "iranSance",
-                                      color: Colors.white , fontWeight: FontWeight.w600
-                                  ),),
+                                  },
+                                  splashColor: Colors.white,
+                                  color: Color(0xff860d9b). withOpacity(.85),
+                                  child: Center(
+                                    child: Text('ورود' , style: TextStyle(
+                                        fontSize: 16.0,fontFamily: "iranSance",
+                                        color: Colors.white , fontWeight: FontWeight.w600
+                                    ),),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Divider(),
-                            Center(
-                              child: FlatButton(
-                                onPressed: (){
-                                  Navigator.pushReplacement(
-                                      context,
-                                      PageTransition(
-                                          type: PageTransitionType.upToDown, child: SignInPage()));
-                                },
-                                child: Text('عضویت در باشگاه' , style: TextStyle(
-                                  color: Color(0xff860d9b),
-                                  fontWeight: FontWeight.bold
-                                ),),
-                              ),
-                            )
-                          ],
-                        ),
+                              Divider(),
+                              Center(
+                                child: FlatButton(
+                                  onPressed: (){
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.upToDown, child: SignInPage()));
+                                  },
+                                  child: Text('عضویت در باشگاه' , style: TextStyle(
+                                      color: Color(0xff860d9b),
+                                      fontWeight: FontWeight.bold
+                                  ),),
+                                ),
+                              )
+                            ],
+                          ),
+                        )
                       )),
                 ))
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget textField(Size size, controller, number, password, hint) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: size.height * .01,
+        right: size.width * .05,
+        bottom: size.height * .02,
+      ),
+      child: Container(
+        height: 50.0,
+        child: TextFormField(
+          focusNode: FocusScopeNode(),
+          keyboardType: (number) ? TextInputType.number : TextInputType.text,
+          maxLines: 1,
+          controller: controller,
+          obscureText: password,
+          decoration: InputDecoration(
+            enabledBorder: new OutlineInputBorder(
+              borderRadius: new BorderRadius.circular(25.0),
+              borderSide: new BorderSide(
+                color: Color(0xff290d66),
+              ),
+            ),
+            filled: true,
+            fillColor: Colors.white,
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                borderSide: BorderSide(
+                    color: Colors.blue
+                )
+            ),
+            labelText: hint,
+            labelStyle: TextStyle(
+                fontFamily: 'iranSance', color: Colors.grey, fontSize: 14.0), ),
         ),
       ),
     );

@@ -29,47 +29,47 @@ class _PazirandeganState extends State<Pazirandegan>
   List<Icon> icons = <Icon>[
     Icon(
       Icons.videogame_asset,
-      color: Color(0xff00a5b8),
+      color: Colors.white,
       size: 35.0,
     ),
     Icon(
       Icons.highlight,
-      color: Color(0xff00a5b8),
+      color: Colors.white,
       size: 35.0,
     ),
     Icon(
       Icons.forward,
-      color: Color(0xff00a5b8),
+      color: Colors.white,
       size: 35.0,
     ),
     Icon(
       Icons.zoom_out_map,
-      color: Color(0xff00a5b8),
+      color: Colors.white,
       size: 35.0,
     ),
     Icon(
       Icons.zoom_out,
-      color: Color(0xff00a5b8),
+      color: Colors.white,
       size: 35.0,
     ),
     Icon(
       Icons.dashboard,
-      color: Color(0xff00a5b8),
+      color: Colors.white,
       size: 35.0,
     ),
     Icon(
       Icons.assignment,
-      color: Color(0xff00a5b8),
+      color: Colors.white,
       size: 35.0,
     ),
     Icon(
       Icons.account_balance,
-      color: Color(0xff00a5b8),
+      color: Colors.white,
       size: 35.0,
     ),
     Icon(
       Icons.list,
-      color: Color(0xff00a5b8),
+      color: Colors.white,
       size: 35.0,
     ),
   ];
@@ -193,10 +193,10 @@ class _PazirandeganState extends State<Pazirandegan>
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                    color: Colors.yellow.shade700, blurRadius: 10.0, spreadRadius: .8)
+                    color: Colors.black54, blurRadius: 5.0, spreadRadius: .8)
               ],
               shape: BoxShape.circle,
-              color: Colors.white,
+              color: Color(0xff290d66),
             ),
             child: Center(
               child: icons[indexG],

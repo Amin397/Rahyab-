@@ -44,9 +44,11 @@ dependencies:
   shared_preferences: ^0.5.6+3
   circle_list: ^1.0.4
   requests: ^3.1.0
-  connectivity: ^0.4.8+2
+  connectivity: ^0.4.9
   circle_wheel_scroll: ^0.0.1+1
   animated_bottom_navigation_bar: ^0.1.2+2
+  mask_text_input_formatter: ^1.0.7
+  pinput: ^0.2.4
   qr_code_scanner:
 
 flutter_icons:

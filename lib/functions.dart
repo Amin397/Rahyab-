@@ -43,6 +43,21 @@ Future<dynamic> makePostRequest(String API,Map params) async {
   return res.json();
 }
 
+Future<dynamic> makePostReg1(String API) async {
+  var res = await Requests.post(API);
+  return res.json();
+}
+
+Future<dynamic> makePostReg2(String API) async {
+  var res = await Requests.post(API);
+  return res.json();
+}
+
+Future<dynamic> makePostReg3(String API) async {
+  var res = await Requests.post(API);
+  return res.json();
+}
+
 //Future<PermissionStatus> _getLocationPermission() async {
 //  final PermissionStatus permission = await LocationPermissions()
 //      .checkPermissionStatus(level: LocationPermissionLevel.location);
