@@ -6,7 +6,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'other/const.dart';
 import 'screens/login_screen.dart';
 import 'screens/mainScreen.dart';
-import 'screens/sign_in_screen.dart';
+import 'screens/register/sign_in_screen.dart';
 import 'screens/splash.dart';
 
 void main(){

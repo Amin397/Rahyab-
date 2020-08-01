@@ -7,7 +7,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 import 'package:rahyab/other/const.dart';
-import '../functions.dart';
+import '../../functions.dart';
 import 'profile_screen.dart';
 
 class SignInPage extends StatelessWidget {

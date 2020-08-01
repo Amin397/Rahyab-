@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:load/load.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rahyab/libs/password/pass_strength.dart';
 import 'package:rahyab/functions.dart';
 import 'package:rahyab/other/const.dart';
+import 'package:rahyab/screens/register/success_page.dart';
 
 class ProfilePage extends StatelessWidget {
 
@@ -289,6 +291,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       ).then((value) {
                                         if(!value['result']["active"]){
                                           hideLoadingDialog();
+                                          Navigator.pushReplacement(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.upToDown,
+                                                  child: SuccessRegPage()));
                                         }else{
 
                                         }
