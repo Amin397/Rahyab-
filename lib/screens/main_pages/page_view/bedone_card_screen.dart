@@ -1,7 +1,12 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:rahyab/functions.dart';
+import 'package:rahyab/model/qr_code_model/qr_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'pazirandegan_items_detailes/main_details_screen.dart';
 
 class KharidBedoneCard extends StatefulWidget {
   @override
@@ -9,16 +14,21 @@ class KharidBedoneCard extends StatefulWidget {
 }
 
 class _KharidBedoneCardState extends State<KharidBedoneCard>
-with TickerProviderStateMixin{
-
+    with TickerProviderStateMixin {
   AnimationController anim_controller;
+
+  QrModel qrModel;
+
+  @override
+  void dispose() {
+    super.dispose();
+    anim_controller.dispose();
+  }
 
   @override
   void initState() {
     super.initState();
-
-    anim_controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+    anim_controller = AnimationController(vsync: this);
   }
 
   String qrScanner = '';
@@ -38,13 +48,6 @@ with TickerProviderStateMixin{
           child: Stack(
             children: <Widget>[
               Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  qrScanner,
-                  style: TextStyle(color: Colors.black, fontSize: 20.0),
-                ),
-              ),
-              Align(
                 alignment: Alignment.center,
                 child: Container(
                   height: 200.0,
@@ -57,6 +60,29 @@ with TickerProviderStateMixin{
                           String scanning = await BarcodeScanner.scan();
                           setState(() {
                             qrScanner = scanning;
+                            makePostReg1(
+                                    'http://admin.rahyabkish.ir/Providers/API/_scanQR?token=test&'
+                                    'userIdentification=${scanning}')
+                                .then((value) async {
+                              if (value['ok']) {
+                                setState(() {
+                                  qrModel = QrModel.fromJson(value);
+                                  print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+                                  print(qrModel.result.desc);
+                                  print(qrModel.result.fname);
+                                  print(qrModel.result.mobile);
+                                  print(value);
+                                });
+                                Navigator.pushReplacement(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.upToDown,
+                                        child: MainDetailScreen(
+                                            qrModel.result.senfUnitName.toString(),
+                                            'assets/images/coffee_logo.png',
+                                            qrModel.result.desc)));
+                              }
+                            });
 //                            _launchURL();
                             print(qrScanner.toString());
                           });
@@ -78,9 +104,14 @@ with TickerProviderStateMixin{
                                       height: 100.0,
                                       width: 100.0,
                                       child: Lottie.asset(
-                                          'assets/anim/qr_code.json',
+                                          'assets/anim/qr_code_scann.json',
                                           repeat: true,
-                                          controller: anim_controller),
+                                          controller: anim_controller,
+                                          onLoaded: (composition) {
+                                        anim_controller
+                                          ..duration = composition.duration
+                                          ..repeat();
+                                      }),
                                     )
                                   ],
                                 ),
@@ -89,10 +120,11 @@ with TickerProviderStateMixin{
                           ),
                         ),
                       ),
-                      Text('برای اسکن کد ضربه بزنید !' , style: TextStyle(
-                        fontSize: 16.0,
-                        fontFamily: 'iranSance'
-                      ),)
+                      Text(
+                        'برای اسکن کد ضربه بزنید !',
+                        style:
+                            TextStyle(fontSize: 16.0, fontFamily: 'iranSance'),
+                      )
                     ],
                   ),
                 ),

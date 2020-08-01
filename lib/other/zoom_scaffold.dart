@@ -1,4 +1,4 @@
-import 'package:circle_list/circle_list.dart';
+import 'package:rahyab/lib/circleList/circle_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -436,14 +436,19 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
           Container(
             height: 60.0,
             width: 60.0,
-            decoration: BoxDecoration(boxShadow: [
-              BoxShadow(
-                  color: Colors.black38, blurRadius: 5.0, spreadRadius: 1.0)
-            ], color: Colors.white, shape: BoxShape.circle),
-            child: Center(
-              child: Icon(icons),
+            child: Container(
+              padding: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xffFFA400) , width: 1.5),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black38, blurRadius: 5.0, spreadRadius: 1.0)
+                  ], color: Colors.white, shape: BoxShape.circle),
+              child: Center(
+                child: Icon(icons),
+              ),
             ),
-          ),
+          )
         ],
       ),
     );

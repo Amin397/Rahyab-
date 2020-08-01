@@ -131,6 +131,7 @@ class _SplashScreenState extends State<SplashScreen>
                             Text('رهیاب',
                               textAlign: TextAlign.center,
                               style: TextStyle(
+                                fontFamily: 'iranSance',
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.0,
                               height: 1

@@ -88,7 +88,7 @@ class _SignInScreenState extends State<SignInScreen>
                       children: <Widget>[
                         Container(
                           margin:
-                              EdgeInsets.only(top: (size.width * .35) * .05),
+                              EdgeInsets.only(top: (size.height * .45) * .25),
                           width: size.width * .18,
                           height: (size.height * .35) * .25,
                           decoration: BoxDecoration(
@@ -267,7 +267,7 @@ class _SignInScreenState extends State<SignInScreen>
                                     if(phone_Number.text.length <= 11){
                                       showLoadingDialog();
                                       makePostReg1(
-                                        'http://panel.rahyabkish.ir/Customers/API/_register1?token=test&mobile=${phone_Number.text}',
+                                        'http://admin.rahyabkish.ir/Customers/API/_register1?token=test&mobile=${phone_Number.text}',
                                       ).then((value) async {
                                         print(value);
                                         if(value['result']['codeSend'] || value['result']['codeSendAgain']){
@@ -354,7 +354,7 @@ class _SignInScreenState extends State<SignInScreen>
                 ),
                 onPressed: () {
                   showLoadingDialog();
-                  makePostReg2('http://panel.rahyabkish.ir/Customers/API/_register2?token=test&'
+                  makePostReg1('http://admin.rahyabkish.ir/Customers/API/_register2?token=test&'
                       'mobile=${phone_Number.text}&code=${code.toString()}').then((value) {
                     if (value['result']['codeValid']) {
                       hideLoadingDialog();

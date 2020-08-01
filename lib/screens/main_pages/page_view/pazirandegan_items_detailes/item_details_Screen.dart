@@ -133,7 +133,7 @@ class _ItemsDetailsState extends State<ItemsDetails>
             Navigator.push(
                 context,
                 PageTransition(
-                    type: PageTransitionType.leftToRight,
+                    type: PageTransitionType.downToUp,
                     child: ItemDetailsClick(switchText()[indexG] , widget.categorieText)));
           },
           child: Container(

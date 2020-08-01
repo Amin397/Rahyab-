@@ -42,7 +42,7 @@ dependencies:
   barcode_scan: ^2.0.1
   url_launcher: ^5.4.2
   shared_preferences: ^0.5.6+3
-  circle_list: ^1.0.4
+#  circle_list: ^1.0.4
   requests: ^3.1.0
   connectivity: ^0.4.9
   circle_wheel_scroll: ^0.0.1+1

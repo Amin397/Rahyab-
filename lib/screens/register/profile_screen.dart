@@ -281,8 +281,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   onPressed: () async{
                                     if (isSamed) {
                                       showLoadingDialog();
-                                      makePostReg3(
-                                          'http://panel.rahyabkish.ir/Customers/API/_register3?token=test&'
+                                      makePostReg1(
+                                          'http://admin.rahyabkish.ir/Customers/API/_register3?token=test&'
                                               'mobile=521652&'
                                               'fname=${fName.text}&'
                                               'lname=${lName.text}&'
