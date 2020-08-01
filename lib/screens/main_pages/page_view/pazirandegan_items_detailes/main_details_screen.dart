@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rahyab/screens/map_provider/pdovider_map.dart';
 
@@ -14,13 +15,31 @@ class MainDetailScreen extends StatefulWidget {
   _MainDetailScreenState createState() => _MainDetailScreenState();
 }
 
-class _MainDetailScreenState extends State<MainDetailScreen> {
+class _MainDetailScreenState extends State<MainDetailScreen>
+    with TickerProviderStateMixin {
 
   double offset = 150.0;
+  double radius = 40;
+
+  AnimationController _animationController;
 
   @override
+  void initState() {
+    super.initState();
+
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _animationController.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    var size = MediaQuery
+        .of(context)
+        .size;
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -30,59 +49,109 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
           backgroundColor: Color(0xff290d66),
           title: Text(widget.name),
         ),
-        body: Container(
+        body: SingleChildScrollView(
+          child: Container(
+            color: Colors.grey[200],
+            height: size.height,
+            width: size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _buildContainer(size),
+                _buildImageDescription(size),
 
-          color: Colors.grey[200],
-          height: size.height,
-          width: size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _buildContainer(size),
-              _buildImageDescription(size),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: size.width * .1),
-                child: Divider(),
-              ),
-              Padding(
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: size.width * .05, right: size.width * .05, top: size.height * .01),
+                  child: _buildKharid(size),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: size.width * .1),
+                  child: Divider(),
+                ),
+
+                Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: size.width * .03),
-                child: Text(
-                  'توضیحات',
-                  style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                  child: Text(
+                    'توضیحات',
+                    style: TextStyle(color: Colors.black54, fontSize: 12.0),
+                  ),
                 ),
-              ),
 
-              Padding(
-                padding: EdgeInsets.only(right: size.width * .05, top: 5.0 , left: size.width * .05),
-                child: Text(
-                  widget.description,
-                  style: TextStyle(fontSize: 12.0),
+                Padding(
+                  padding: EdgeInsets.only(
+                      right: size.width * .05, top: 5.0, left: size.width * .05),
+                  child: Text(
+                    widget.description,
+                    style: TextStyle(fontSize: 12.0),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: size.height * .03),
-                child: _buildLocationContainer(size),
-              ),
-            ],
+
+                Padding(
+                  padding: EdgeInsets.only(top: size.height * .03),
+                  child: _buildLocationContainer(size),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
+  Widget _buildKharid(Size size) {
+    return Container(
+      width: size.width,
+      height: size.height * .1,
+      decoration: BoxDecoration(
+        color: Color(0xff290d66),
+        borderRadius: BorderRadius.circular(10.0),
+        boxShadow: [BoxShadow(
+          color: Colors.black26 , blurRadius: 5.0 , spreadRadius: 1.0
+        )]
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Lottie.asset('assets/anim/shopping.json',
+              controller: _animationController,
+              repeat: true
+          ),
+          Text('خرید از ${widget.name}', style: TextStyle(
+            color: Colors.white,
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),),
+          Lottie.asset('assets/anim/shopping.json',
+              controller: _animationController,
+              repeat: true
+          )
+        ],
+      ),
+    );
+  }
+
   Widget _buildLocationContainer(Size size) {
-    return  GestureDetector(
+    return GestureDetector(
       onPanUpdate: (details) {
         setState(() {
-          offset = offset + ( - (details.delta.dx));
+          offset = offset + (-(details.delta.dx));
+          radius = radius + ((details.delta.dx) / 5);
           print(offset);
-          if(offset >= size.width){
+          if (offset >= size.width) {
             Navigator.push(
                 context,
                 PageTransition(
                     type: PageTransitionType.upToDown, child: ProviderMap()));
+            Future.delayed(new Duration(milliseconds: 500), () =>
+            {
+              setState(() {
+                offset = 150.0;
+                radius = 40;
+              })
+            });
           }
         });
       },
@@ -90,12 +159,13 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
         height: size.height * .08,
         width: offset,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black , width: .1),
+          border: Border.all(color: Colors.black, width: .1),
           boxShadow: [
             BoxShadow(color: Colors.black26, spreadRadius: 0.8, blurRadius: 5.0)
           ],
           borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(40.0), topLeft: Radius.circular(40.0)),
+              bottomLeft: Radius.circular(radius),
+              topLeft: Radius.circular(radius)),
         ),
         child: Stack(
           children: <Widget>[
@@ -106,13 +176,15 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
                 width: offset,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(40.0),
-                        topLeft: Radius.circular(40.0)),
+                        bottomLeft: Radius.circular(radius),
+                        topLeft: Radius.circular(radius)),
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: Image.asset(
+                      image: Image
+                          .asset(
                         'assets/images/map.jpg',
-                      ).image,
+                      )
+                          .image,
                     )),
               ),
             ),
@@ -122,8 +194,8 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
                 width: offset,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(40.0),
-                        topLeft: Radius.circular(40.0)),
+                        bottomLeft: Radius.circular(radius),
+                        topLeft: Radius.circular(radius)),
                     gradient: LinearGradient(
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
@@ -140,13 +212,14 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('موقعیت' , style: TextStyle(
-                        color: Colors.white ,
+                    Text('موقعیت', style: TextStyle(
+                        color: Colors.white,
                         fontWeight: FontWeight.w600,
                         fontSize: 20.0,
                         fontFamily: 'iranSance'
                     ),),
-                    Icon(Icons.keyboard_arrow_left , color: Colors.white,size: 30.0,)
+                    Icon(Icons.keyboard_arrow_left, color: Colors.white,
+                      size: 30.0,)
                   ],
                 ),
               ),
@@ -155,44 +228,6 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
         ),
       ),
     );
-  }
-
-  Widget _buildLocationDragTarget(Size size){
-    return Container(
-      height: size.height * .08,
-      width: size.width * .4,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black , width: .1),
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(40.0), topLeft: Radius.circular(40.0)),
-      ),
-      child: DragTarget(
-        onAccept: (data){
-          print(data);
-        },
-        builder: (context , List<int> candidateData , rejectData){
-          return Center(
-            child: Text('amin'),
-          );
-        },
-        onWillAccept: (data){
-          if(data == 'location'){
-            return true;
-          }else{
-            return false;
-          }
-        },
-      ),
-    );
-  }
-
-  void _onHorizontalDrag(DragEndDetails details) {
-    if(details.primaryVelocity == 0) return; // user have just tapped on screen (no dragging)
-
-    if (details.primaryVelocity.compareTo(0) == -1)
-      print('dragged from left');
-    else
-      print('dragged from right');
   }
 
   Widget _buildImageDescription(size) {
@@ -225,7 +260,6 @@ class _MainDetailScreenState extends State<MainDetailScreen> {
       ),
     );
   }
-
 
   Widget _buildContainer(size) {
     return Padding(
