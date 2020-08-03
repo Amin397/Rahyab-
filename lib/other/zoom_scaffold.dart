@@ -424,8 +424,8 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
     return GestureDetector(
       onTap: () {
         setState(() {
-          amin = centerWidget(icons, name, index);
           itemSelected = true;
+          amin = centerWidget(icons, name, index);
         });
 //        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => pages));
       },

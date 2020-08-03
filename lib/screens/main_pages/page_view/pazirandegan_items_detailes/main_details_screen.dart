@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rahyab/screens/map_provider/pdovider_map.dart';
 
@@ -23,18 +25,8 @@ class _MainDetailScreenState extends State<MainDetailScreen>
 
   AnimationController _animationController;
 
-  @override
-  void initState() {
-    super.initState();
+  var cartPriceMask = new MaskTextInputFormatter(mask: '###,###,###,###', filter: { "#": RegExp(r'[0-9]') });
 
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _animationController.dispose();
-  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery
@@ -102,33 +94,197 @@ class _MainDetailScreenState extends State<MainDetailScreen>
   }
 
   Widget _buildKharid(Size size) {
+    return GestureDetector(
+      onTap: (){
+        showDialog(
+          context: context,
+          builder: (_) => Directionality(
+            textDirection: TextDirection.rtl,
+            child: AlertDialog(
+              elevation: 50.0,
+              title: _buildAlrtTitle(size),
+              content: _buildContentAlert(size),
+            ),
+          )
+        );
+      },
+      child: Container(
+        width: size.width,
+        height: size.height * .1,
+        decoration: BoxDecoration(
+            color: Color(0xff290d66),
+            borderRadius: BorderRadius.circular(10.0),
+            boxShadow: [BoxShadow(
+                color: Colors.black38 , blurRadius: 5.0 , spreadRadius: 1.0
+            )]
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Lottie.asset('assets/anim/shopping.json',
+                controller: _animationController,
+                repeat: true
+            ),
+            Text('خرید از ${widget.name}', style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'iranSance',
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),),
+            Lottie.asset('assets/anim/shopping.json',
+                controller: _animationController,
+                repeat: true
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContentAlert(Size size){
+    return Container(
+      height: size.height * .3,
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: size.height * .05,
+          left: size.height * .01,
+          right: size.width * .05,
+          bottom: size.height * .02,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              height: size.height * .06,
+              child: TextFormField(
+                textAlign: TextAlign.end,
+                focusNode: FocusScopeNode(),
+                inputFormatters: <TextInputFormatter>[
+                  cartPriceMask
+                ],
+                keyboardType: TextInputType.number,
+                maxLines: 1,
+                decoration: InputDecoration(
+                  enabledBorder: new OutlineInputBorder(
+                    borderRadius:
+                    new BorderRadius.circular(25.0),
+                    borderSide: new BorderSide(
+                      color: Color(0xff290d66),
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                      BorderRadius.circular(25.0),
+                      borderSide:
+                      BorderSide(color: Colors.blue)),
+                  labelText: 'مبلغ خرید(ريال)',
+                  labelStyle: TextStyle(
+                      fontFamily: 'iranSance',
+                      color: Colors.grey,
+                      fontSize: 14.0),
+                ),
+              ),
+            ),
+
+            _buildActionsButtonAlert(size),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionsButtonAlert(Size size){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Expanded(
+          flex: 2,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Flexible(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    height: size.height * .07,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0)
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'خرید از کیف پول',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.blue,
+                              fontFamily: 'iranSance',
+                            ),
+                          ),
+                          Lottie.asset('assets/anim/wallet.json',
+                            fit: BoxFit.cover,
+                            height: (size.height * .07) * .6,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ),
+              Flexible(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    height: size.height * .07,
+                    decoration: BoxDecoration(
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'خرید آنلاین',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.blue,
+                            fontFamily: 'iranSance',
+                          ),
+                        ),
+                        Lottie.asset('assets/anim/online_payment.json',
+                          fit: BoxFit.cover,
+                          height: (size.height * .07) * .6,
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+
+  Widget _buildAlrtTitle(Size size){
     return Container(
       width: size.width,
-      height: size.height * .1,
-      decoration: BoxDecoration(
-        color: Color(0xff290d66),
-        borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [BoxShadow(
-          color: Colors.black26 , blurRadius: 5.0 , spreadRadius: 1.0
-        )]
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Lottie.asset('assets/anim/shopping.json',
-              controller: _animationController,
-              repeat: true
-          ),
-          Text('خرید از ${widget.name}', style: TextStyle(
-            color: Colors.white,
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),),
-          Lottie.asset('assets/anim/shopping.json',
-              controller: _animationController,
-              repeat: true
-          )
-        ],
+      height: size.height * .2,
+      child: Center(
+        child: Image(
+          fit: BoxFit.cover,
+          image: Image.asset(widget.imagePath).image,
+        ),
       ),
     );
   }
@@ -139,6 +295,11 @@ class _MainDetailScreenState extends State<MainDetailScreen>
         setState(() {
           offset = offset + (-(details.delta.dx));
           radius = radius + ((details.delta.dx) / 5);
+          if(offset < 150.0){
+            setState(() {
+              offset = 150.0;
+            });
+          }
           print(offset);
           if (offset >= size.width) {
             Navigator.push(
