@@ -1,8 +1,8 @@
-import 'package:rahyab/lib/circleList/circle_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:rahyab/lib/circleList/circle_list.dart';
 import 'package:rahyab/screens/main_pages/HomePazirandegan.dart';
 import 'package:rahyab/screens/main_pages/page2.dart';
 import 'package:rahyab/screens/main_pages/page3.dart';
@@ -28,6 +28,8 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
   ScrollController _scrollController;
   bool isCollapsed = false;
   AnimationController _animationController;
+  Widget amin;
+  bool itemSelected = false;
 
   @override
   void initState() {
@@ -39,28 +41,6 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 800));
   }
-
-//  final List<TitledNavigationBarItem> items = [
-//    TitledNavigationBarItem(
-//        title: Text('کیف پول'), icon: Icons.account_balance_wallet),
-//    TitledNavigationBarItem(
-//        title: Text(
-//          'خریدبدون کارت',
-//          style: TextStyle(
-//            fontSize: 11.0
-//          ),
-//        ),
-//        icon: Icons.credit_card),
-//    TitledNavigationBarItem(title: Text('صفحه اصلی' , style: TextStyle(
-//        fontSize: 12.0
-//    ),), icon: Icons.home),
-//    TitledNavigationBarItem(title: Text('تخفیف روز' , style: TextStyle(
-//        fontSize: 12.0
-//    ),), icon: Icons.local_offer),
-//    TitledNavigationBarItem(title: Text('صورتحساب' , style: TextStyle(
-//        fontSize: 12.0
-//    ),), icon: Icons.assignment),
-//  ];
 
   List icons = [
     Icons.shop,
@@ -102,247 +82,212 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
         child: Scaffold(
             body: Stack(
           children: <Widget>[
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image:
-                            Image.asset('assets/images/background.jpg').image)),
-                width: size.width,
-                height: size.height,
-                child: Center(
-                  child: Container(
-                    child: CircleList(
-                      showInitialAnimation: true,
-                      animationSetting: AnimationSetting(),
-                      centerWidget: (!itemSelected)
-                          ? Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black,
-                                        spreadRadius: 1.0,
-                                        blurRadius: 5.0)
-                                  ],
-                                  image: DecorationImage(
-                                      fit: BoxFit.contain,
-                                      image:
-                                          Image.asset('assets/images/logo.png')
-                                              .image)),
-                            )
-                          : amin,
-//                gradient: LinearGradient(
-//                  colors: [
-//                    Colors.red,
-//                    Colors.blue
-//                  ],
-//                  begin: Alignment.topCenter,
-//                  end: Alignment.bottomCenter,
-//                ),
-                      innerCircleRotateWithChildren: false,
-                      rotateMode: RotateMode.allRotate,
-                      origin: Offset(0, 0),
-                      children: List.generate(7, (index) {
-                        return Items(index, icons[index], name[index]);
-                      }),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 50.0),
-                child: Text(
-                  'باشگاه مشتریان رهیاب',
-                  style: TextStyle(
-                      fontFamily: 'iranSance',
-                      color: Colors.white,
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                  padding: EdgeInsets.only(top: (size.height * .11) * .4),
-                  width: size.width,
-                  height: size.height * .2,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          if (!isCollapsed) {
-                            _animationController
-                              ..duration = Duration(milliseconds: 1500)
-                              ..forward();
-                            Provider.of<MenuController>(context, listen: true)
-                                .toggle();
-                          } else {
-                            _animationController
-                              ..duration = Duration(milliseconds: 1500)
-                              ..reverse();
-                            Provider.of<MenuController>(context, listen: true)
-                                .toggle();
-                          }
-                          setState(() {
-                            isCollapsed = !isCollapsed;
-                          });
-                        },
-                        child: Container(
-                          height: (!isCollapsed) ? 60.0 : 100.0,
-                          width: (!isCollapsed) ? 60.0 : 100.0,
-                          child: Lottie.asset('assets/anim/arrow.json',
-                              controller: _animationController,
-                              fit: BoxFit.contain),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.all(5.0),
-                                width: size.width * .15,
-                                height: size.height * .2,
-                                decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black26,
-                                          spreadRadius: 1.2,
-                                          blurRadius: 5.0)
-                                    ],
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: Colors.white, width: 2.0),
-                                    image: DecorationImage(
-                                        fit: BoxFit.contain,
-                                        image: Image.asset(
-                                                'assets/images/avatar.png')
-                                            .image)),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  width: size.width * .75,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        'مصطفی براتی',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14.0,
-                                            fontFamily: 'iranSance'),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'کد عضویت: ',
-                                            style: TextStyle(
-                                                fontFamily: 'iranSance',
-                                                fontSize: 8.0,
-                                                color: Colors.white60),
-                                          ),
-                                          Text(
-                                            'ba45124845',
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.white,
-                                              fontFamily: 'IRANSans',
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'موجودی: ',
-                                            style: TextStyle(
-                                                fontFamily: 'iranSance',
-                                                fontSize: 8.0,
-                                                color: Colors.white60),
-                                          ),
-                                          Text(
-                                            '500.000',
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              color: Colors.white,
-                                              fontFamily: 'IRANSans',
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  )),
-            ),
+            _buildCenterCircleList(size),
+            _buildBottomText(size),
+            _buildTopPart(size),
           ],
-        )
-//          PageView(
-//            controller: _pageController,
-//            allowImplicitScrolling: false,
-//            onPageChanged: (page){
-//              setState(() {
-//                currentIndex = page;
-//              });
-//            },
-//            children: <Widget>[
-//              VsWallet(),
-//              QrCodeScanner(),
-//              widget.contentScreen.contentBuilder(context),
-//              DayDiscount(),
-//              Bills(),
-//            ],
-//          ),
-//          bottomNavigationBar: TitledBottomNavigationBar(
-//            onTap: (index) {
-//              setState(() {
-//                currentIndex = index;
-//                print(currentIndex);
-//                onTabTapped(index);
-//              });
-//            },
-//            enableShadow: true,
-//            reverse: true,
-//            currentIndex: currentIndex,
-//            curve: Curves.easeInBack,
-//            items: items,
-//            inactiveStripColor: Color(0xff00a5b8),
-//            indicatorColor: Color(0xffff5a47),
-//            activeColor: Color(0xffff5a47),
-//            inactiveColor: Color(0xff00a5b8),
-//          ),
-            ),
+        )),
       ),
     ));
   }
 
-  bool itemSelected = false;
+  Widget _buildCenterCircleList(Size size) {
+    return Align(
+      alignment: Alignment.center,
+      child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: Image.asset('assets/images/background.jpg').image)),
+        width: size.width,
+        height: size.height,
+        child: Center(
+          child: Container(
+            child: CircleList(
+              showInitialAnimation: true,
+              animationSetting: AnimationSetting(),
+              centerWidget: (!itemSelected)
+                  ? Container(
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black,
+                                spreadRadius: 1.0,
+                                blurRadius: 5.0)
+                          ],
+                          image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image:
+                                  Image.asset('assets/images/logo.png').image)),
+                    )
+                  : amin,
+              innerCircleRotateWithChildren: false,
+              rotateMode: RotateMode.allRotate,
+              origin: Offset(0, 0),
+              children: List.generate(7, (index) {
+                return Items(index, icons[index], name[index]);
+              }),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTopPart(Size size) {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Container(
+          padding: EdgeInsets.only(top: (size.height * .11) * .4),
+          width: size.width,
+          height: size.height * .2,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _buildMenuToggle(),
+              _buildTopProfile(size)
+            ],
+          )),
+    );
+  }
+
+  Widget _buildTopProfile(Size size){
+    return Expanded(
+      child: Container(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.all(5.0),
+              width: size.width * .15,
+              height: size.height * .2,
+              decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black26,
+                        spreadRadius: 1.2,
+                        blurRadius: 5.0)
+                  ],
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 2.0),
+                  image: DecorationImage(
+                      fit: BoxFit.contain,
+                      image: Image.asset('assets/images/avatar.png')
+                          .image)),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: size.width * .75,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'مصطفی براتی',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.0,
+                          fontFamily: 'iranSance'),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'کد عضویت: ',
+                          style: TextStyle(
+                              fontFamily: 'iranSance',
+                              fontSize: 8.0,
+                              color: Colors.white60),
+                        ),
+                        Text(
+                          'ba45124845',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.white,
+                            fontFamily: 'IRANSans',
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'موجودی: ',
+                          style: TextStyle(
+                              fontFamily: 'iranSance',
+                              fontSize: 8.0,
+                              color: Colors.white60),
+                        ),
+                        Text(
+                          '500.000',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.white,
+                            fontFamily: 'IRANSans',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMenuToggle(){
+    return InkWell(
+      onTap: () {
+        if (!isCollapsed) {
+          _animationController
+            ..duration = Duration(milliseconds: 1500)
+            ..forward();
+          Provider.of<MenuController>(context, listen: true).toggle();
+        } else {
+          _animationController
+            ..duration = Duration(milliseconds: 1500)
+            ..reverse();
+          Provider.of<MenuController>(context, listen: true).toggle();
+        }
+        setState(() {
+          isCollapsed = !isCollapsed;
+        });
+      },
+      child: Container(
+        height: (!isCollapsed) ? 60.0 : 100.0,
+        width: (!isCollapsed) ? 60.0 : 100.0,
+        child: Lottie.asset('assets/anim/arrow.json',
+            controller: _animationController, fit: BoxFit.contain),
+      ),
+    );
+  }
+
+  Widget _buildBottomText(Size size) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 50.0),
+        child: Text(
+          'باشگاه مشتریان رهیاب',
+          style: TextStyle(
+              fontFamily: 'iranSance',
+              color: Colors.white,
+              fontSize: 22.0,
+              fontWeight: FontWeight.w600),
+        ),
+      ),
+    );
+  }
 
   Widget centerWidget([icon, name, index]) {
     return (!itemSelected)
@@ -382,8 +327,7 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
                     }
                 }
                 return null;
-              })
-              );
+              }));
             },
             child: Container(
               height: double.infinity,
@@ -418,8 +362,6 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
           );
   }
 
-  Widget amin;
-
   Widget Items(index, icons, name) {
     return GestureDetector(
       onTap: () {
@@ -427,7 +369,6 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
           itemSelected = true;
           amin = centerWidget(icons, name, index);
         });
-//        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => pages));
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -439,11 +380,15 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
             child: Container(
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xffFFA400) , width: 1.5),
+                  border: Border.all(color: Color(0xffFFA400), width: 1.5),
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black38, blurRadius: 5.0, spreadRadius: 1.0)
-                  ], color: Colors.white, shape: BoxShape.circle),
+                        color: Colors.black38,
+                        blurRadius: 5.0,
+                        spreadRadius: 1.0)
+                  ],
+                  color: Colors.white,
+                  shape: BoxShape.circle),
               child: Center(
                 child: Icon(icons),
               ),
@@ -454,18 +399,7 @@ class _ZoomScaffoldState extends State<ZoomScaffold>
     );
   }
 
-  Widget _buildMenuProfilePic(size) {
-    return Container(
-      height: size.height * .11,
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(8.0))),
-      child: Row(
-        children: <Widget>[],
-      ),
-    );
-  }
-
-  void onTabTapped(int index) {
+  onTabTapped(int index) {
     _pageController.animateToPage(index,
         curve: Curves.slowMiddle, duration: new Duration(milliseconds: 250));
   }

@@ -68,64 +68,73 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Colors.grey[200],
-        appBar: AppBar(
-          backgroundColor: Color(0xff290d66),
-          title: Text(
-            '${widget.parentName} / ${widget.switchName}',
-            style: TextStyle(fontSize: 14.0, fontFamily: 'IRANSans'),
+        appBar: _buildAppBar(),
+        body: _buildBodyOfScaffold(size),
+      ),
+    );
+  }
+
+  Widget _buildBodyOfScaffold(Size size){
+    return Container(
+      height: size.height,
+      width: size.width,
+      padding: EdgeInsets.symmetric(
+          horizontal: size.width * .05, vertical: size.height * .01),
+      child: Column(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.symmetric(vertical: size.height * .03),
+            height: size.height * .2,
+            width: size.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                color: Color(0xff290d66)),
           ),
-        ),
-        body: Container(
-          height: size.height,
-          width: size.width,
-          padding: EdgeInsets.symmetric(
-              horizontal: size.width * .05, vertical: size.height * .01),
-          child: Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(vertical: size.height * .03),
-                height: size.height * .2,
-                width: size.width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    color: Color(0xff290d66)),
+          Expanded(
+            child: Container(
+              width: size.width,
+              padding: EdgeInsets.symmetric(vertical: size.height * .01),
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                controller: _scrollController,
+                itemCount: listDet.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        left: size.width * .05,
+                        right: size.width * .05,
+                        bottom: size.height * .03),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    MainDetailScreen(listDet[index].name , listDet[index].imagePath , listDet[index].description)));
+                      },
+                      child: _buildListViewIcons(context, index),
+                    ),
+                  );
+                },
               ),
-              Expanded(
-                child: Container(
-                  width: size.width,
-                  padding: EdgeInsets.symmetric(vertical: size.height * .01),
-                  child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    controller: _scrollController,
-                    itemCount: listDet.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                            left: size.width * .05,
-                            right: size.width * .05,
-                            bottom: size.height * .03),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        MainDetailScreen(listDet[index].name , listDet[index].imagePath , listDet[index].description)));
-                          },
-                          child: _buildListViewIcons(context, index),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAppBar(){
+    return AppBar(
+      backgroundColor: Color(0xff290d66),
+      title: Text(
+        '${widget.parentName} / ${widget.switchName}',
+        style: TextStyle(fontSize: 14.0, fontFamily: 'IRANSans'),
       ),
     );
   }
 
   Widget _buildListViewIcons(context, index) {
+
     var size = MediaQuery.of(context).size;
 
     return Material(

@@ -28,16 +28,6 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController password = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
 
     var size = MediaQuery.of(context).size;
@@ -48,53 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
           overflow: Overflow.clip,
           fit: StackFit.expand,
           children: <Widget>[
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                padding: EdgeInsets.only(top: size.height * .05),
-                width: size.width,
-                height: size.height * .5,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset('assets/images/background.jpg')
-                            .image)),
-                child: Center(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(top: (size.width * .35) * .05),
-                        width: size.width * .18,
-                        height: (size.height * .35) * .25,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: Image.asset('assets/images/logo.png')
-                                    .image)),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'رهیاب',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                                color: Colors.white),
-                          ),
-                          Text(
-                            'RAHYAB',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            _buildLoadingBg(size),
             Align(
                 alignment: Alignment.bottomCenter,
                 child: SingleChildScrollView(
@@ -127,70 +71,117 @@ class _LoginScreenState extends State<LoginScreen> {
                               textField(size, password, false, true , 'رمز عبور'),
 
                               Divider(),
-                              FlatButton(
-                                onPressed: (){
-
-                                },
-                                child: Text('بازیابی رمز عبور' , style: TextStyle(
-                                    color: Colors.blueAccent,
-                                    fontSize: 12.0
-                                ),),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: (size.height * .7) * .1 , left: size.width * .1 , right:  size.width * .1 ),
-                                child: RaisedButton(
-                                  onPressed: (){
-//                                  showLoadingDialog();
-//                                  makePostRequest(
-//                                      'http://demo.offerlee.ir/Customers/API/login',
-//                                      {
-//                                        'username': username.text,
-//                                        'password': password.text,
-//                                        'token': 'test'
-//                                      }).then((value) async {
-//                                    if(value['result'] == 'success'){
-//                                      hideLoadingDialog();
-                                    Navigator.pushReplacement(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.upToDown, child: MyHomePage()));
-//                                    }else{
-//                                      hideLoadingDialog();
-//                                      print('amin');
-//                                    }
-//                                  });
-                                  },
-                                  splashColor: Colors.white,
-                                  color: Color(0xff860d9b). withOpacity(.85),
-                                  child: Center(
-                                    child: Text('ورود' , style: TextStyle(
-                                        fontSize: 16.0,fontFamily: "iranSance",
-                                        color: Colors.white , fontWeight: FontWeight.w600
-                                    ),),
-                                  ),
-                                ),
-                              ),
+                              _buildRemindePassword(size),
+                              _buildLoginButton(size),
                               Divider(),
-                              Center(
-                                child: FlatButton(
-                                  onPressed: (){
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.upToDown, child: SignInPage()));
-                                  },
-                                  child: Text('عضویت در باشگاه' , style: TextStyle(
-                                      color: Color(0xff860d9b),
-                                      fontWeight: FontWeight.bold
-                                  ),),
-                                ),
-                              )
+                              _buildSignUpButton(size)
                             ],
                           ),
                         )
                       )),
                 ))
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSignUpButton(Size size){
+    return Center(
+      child: FlatButton(
+        onPressed: (){
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.upToDown, child: SignInPage()));
+        },
+        child: Text('عضویت در باشگاه' , style: TextStyle(
+            color: Color(0xff860d9b),
+            fontWeight: FontWeight.bold
+        ),),
+      ),
+    );
+  }
+
+  Widget _buildLoginButton(Size size){
+    return Padding(
+      padding: EdgeInsets.only(top: (size.height * .7) * .1 , left: size.width * .1 , right:  size.width * .1 ),
+      child: RaisedButton(
+        onPressed: (){
+          Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  type: PageTransitionType.upToDown, child: MyHomePage()));
+        },
+        splashColor: Colors.white,
+        color: Color(0xff860d9b). withOpacity(.85),
+        child: Center(
+          child: Text('ورود' , style: TextStyle(
+              fontSize: 16.0,fontFamily: "iranSance",
+              color: Colors.white , fontWeight: FontWeight.w600
+          ),),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRemindePassword(Size size){
+    return FlatButton(
+      onPressed: (){
+
+      },
+      child: Text('بازیابی رمز عبور' , style: TextStyle(
+          color: Colors.blueAccent,
+          fontSize: 12.0
+      ),),
+    );
+  }
+
+  Widget _buildLoadingBg(Size size){
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Container(
+        padding: EdgeInsets.only(top: size.height * .05),
+        width: size.width,
+        height: size.height * .5,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: Image.asset('assets/images/background.jpg')
+                    .image)),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: (size.width * .35) * .05),
+                width: size.width * .18,
+                height: (size.height * .35) * .25,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: Image.asset('assets/images/logo.png')
+                            .image)),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'رهیاب',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                        color: Colors.white),
+                  ),
+                  Text(
+                    'RAHYAB',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

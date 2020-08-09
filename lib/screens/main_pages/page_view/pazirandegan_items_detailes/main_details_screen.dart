@@ -101,8 +101,9 @@ class _MainDetailScreenState extends State<MainDetailScreen>
           builder: (_) => Directionality(
             textDirection: TextDirection.rtl,
             child: AlertDialog(
+              scrollable: true,
+              backgroundColor: Colors.transparent,
               elevation: 50.0,
-              title: _buildAlrtTitle(size),
               content: _buildContentAlert(size),
             ),
           )
@@ -143,55 +144,69 @@ class _MainDetailScreenState extends State<MainDetailScreen>
 
   Widget _buildContentAlert(Size size){
     return Container(
-      height: size.height * .3,
-      child: Padding(
-        padding: EdgeInsets.only(
-          top: size.height * .05,
-          left: size.height * .01,
-          right: size.width * .05,
-          bottom: size.height * .02,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-              height: size.height * .06,
-              child: TextFormField(
-                textAlign: TextAlign.end,
-                focusNode: FocusScopeNode(),
-                inputFormatters: <TextInputFormatter>[
-                  cartPriceMask
-                ],
-                keyboardType: TextInputType.number,
-                maxLines: 1,
-                decoration: InputDecoration(
-                  enabledBorder: new OutlineInputBorder(
-                    borderRadius:
-                    new BorderRadius.circular(25.0),
-                    borderSide: new BorderSide(
-                      color: Color(0xff290d66),
+      padding: EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0)
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _buildAlrtTitle(size),
+          Container(
+            height: size.height * .3,
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: size.height * .05,
+                left: size.height * .01,
+                right: size.width * .05,
+                bottom: size.height * .02,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    height: size.height * .06,
+                    child: TextFormField(
+                      textAlign: TextAlign.end,
+                      focusNode: FocusScopeNode(),
+                      inputFormatters: <TextInputFormatter>[
+                        cartPriceMask
+                      ],
+                      keyboardType: TextInputType.number,
+                      maxLines: 1,
+                      decoration: InputDecoration(
+                        enabledBorder: new OutlineInputBorder(
+                          borderRadius:
+                          new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                            color: Color(0xff290d66),
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.circular(25.0),
+                            borderSide:
+                            BorderSide(color: Colors.blue)),
+                        labelText: 'مبلغ خرید(ريال)',
+                        labelStyle: TextStyle(
+                            fontFamily: 'iranSance',
+                            color: Colors.grey,
+                            fontSize: 14.0),
+                      ),
                     ),
                   ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius:
-                      BorderRadius.circular(25.0),
-                      borderSide:
-                      BorderSide(color: Colors.blue)),
-                  labelText: 'مبلغ خرید(ريال)',
-                  labelStyle: TextStyle(
-                      fontFamily: 'iranSance',
-                      color: Colors.grey,
-                      fontSize: 14.0),
-                ),
+
+                  _buildActionsButtonAlert(size),
+                ],
               ),
             ),
-
-            _buildActionsButtonAlert(size),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
@@ -221,7 +236,7 @@ class _MainDetailScreenState extends State<MainDetailScreen>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                            'خرید از کیف پول',
+                            'پرداخت از کیف پول',
                             style: TextStyle(
                               fontSize: 12.0,
                               color: Colors.blue,
@@ -252,7 +267,7 @@ class _MainDetailScreenState extends State<MainDetailScreen>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'خرید آنلاین',
+                          'پرداخت آنلاین',
                           style: TextStyle(
                             fontSize: 12.0,
                             color: Colors.blue,

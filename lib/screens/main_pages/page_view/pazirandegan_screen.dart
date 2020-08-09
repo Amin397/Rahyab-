@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import 'package:rahyab/Helper/NavHelper.dart';
+import 'package:rahyab/Helper/PrefHelper.dart';
+import 'package:rahyab/model/WorkModel.dart';
 import 'pazirandegan_items_detailes/item_details_Screen.dart';
+import 'package:http/http.dart' as http;
 
 class Pazirandegan extends StatefulWidget {
   @override
@@ -12,82 +14,42 @@ class Pazirandegan extends StatefulWidget {
 
 class _PazirandeganState extends State<Pazirandegan>
     with TickerProviderStateMixin {
-  PageController pageController;
-  final _currentPageNotifier = ValueNotifier<int>(0);
-  List<String> texts = [
-    'تفریح و سرگرمی',
-    'پوشاک',
-    'هایپرمارکت',
-    'رستوران',
-    'کافه',
-    'ورزشی',
-    'مذهبی',
-    'خرید',
-    'شهر بازی',
-  ];
 
-  List<Icon> icons = <Icon>[
-    Icon(
-      Icons.videogame_asset,
-      color: Colors.white,
-      size: 35.0,
-    ),
-    Icon(
-      Icons.highlight,
-      color: Colors.white,
-      size: 35.0,
-    ),
-    Icon(
-      Icons.forward,
-      color: Colors.white,
-      size: 35.0,
-    ),
-    Icon(
-      Icons.zoom_out_map,
-      color: Colors.white,
-      size: 35.0,
-    ),
-    Icon(
-      Icons.zoom_out,
-      color: Colors.white,
-      size: 35.0,
-    ),
-    Icon(
-      Icons.dashboard,
-      color: Colors.white,
-      size: 35.0,
-    ),
-    Icon(
-      Icons.assignment,
-      color: Colors.white,
-      size: 35.0,
-    ),
-    Icon(
-      Icons.account_balance,
-      color: Colors.white,
-      size: 35.0,
-    ),
-    Icon(
-      Icons.list,
-      color: Colors.white,
-      size: 35.0,
-    ),
-  ];
+  bool loaded = false;
+  List<WorkModel> list = List();
+
+  init() async
+  {
+    await PrefHelper.getWorkGroup().then((value){
+      for(var i in value)
+      {
+        list.add(i);
+      }
+    });
+    setState(() {
+      loaded = true;
+    });
+
+  }
 
   @override
   void initState() {
+    super.initState();
     final systemTheme = SystemUiOverlayStyle.light.copyWith(
       systemNavigationBarColor: Color(0xff290d66),
       systemNavigationBarIconBrightness: Brightness.light,
     );
     SystemChrome.setSystemUIOverlayStyle(systemTheme);
-    pageController = PageController(initialPage: 1);
-    super.initState();
+
+    init();
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(
@@ -124,52 +86,21 @@ class _PazirandeganState extends State<Pazirandegan>
     return Expanded(
       flex: 1,
       child: Container(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              child: PageView.builder(
-                physics: BouncingScrollPhysics(),
-                controller: pageController,
-                itemCount: 3,
-                onPageChanged: (int indexP) {
-                  _currentPageNotifier.value = indexP;
-                },
-                itemBuilder: (BuildContext context, int indexP) {
-                  return _buildPageView(context, indexP, size);
-                },
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: size.height * .05,
-                child: SmoothPageIndicator(
-                  controller: pageController,
-                  count: 3,
-                  effect: ExpandingDotsEffect(
-                      dotHeight: 10.0,
-                      dotWidth: 10.0,
-                      dotColor: Color(0xff290d66),
-                      activeDotColor: Colors.yellow.shade700),
-                ),
-              ),
-            )
-          ],
-        ),
+        child:_buildGridView(context, size),
       ),
     );
   }
 
-  Widget _buildPageView(context, indexP, size) {
+  Widget _buildGridView(context, size) {
     return Container(
       child: Center(
         child: GridView.builder(
-          padding: EdgeInsets.symmetric(vertical: size.height * .02),
+          padding: EdgeInsets.symmetric(vertical: size.height * .03),
           physics: BouncingScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3, mainAxisSpacing: size.height * .03),
           itemBuilder: (_, indexG) => _buildItemsOfGridView(indexG, size),
-          itemCount: 9,
+          itemCount: list.length,
         ),
       ),
     );
@@ -178,11 +109,7 @@ class _PazirandeganState extends State<Pazirandegan>
   Widget _buildItemsOfGridView(indexG, size) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context,
-            PageTransition(
-                type: PageTransitionType.upToDown,
-                child: ItemsDetails(texts[indexG], icons[indexG])));
+        NavHelper.push(context, ItemsDetails(list[indexG].work_name , list[indexG].work_icon));
       },
       child: Column(
         children: <Widget>[
@@ -199,11 +126,12 @@ class _PazirandeganState extends State<Pazirandegan>
               color: Color(0xff290d66),
             ),
             child: Center(
-              child: icons[indexG],
+              child: Image.asset(
+                'assets/images/logo.png', fit: BoxFit.cover,),
             ),
           ),
           Text(
-            texts[indexG],
+            list[indexG].work_name,
             style: TextStyle(fontSize: 12.0),
           )
         ],
@@ -239,7 +167,9 @@ class _PazirandeganState extends State<Pazirandegan>
                     border: Border.all(color: Colors.white, width: 2.0),
                     image: DecorationImage(
                         fit: BoxFit.contain,
-                        image: Image.asset('assets/images/avatar.png').image)),
+                        image: Image
+                            .asset('assets/images/avatar.png')
+                            .image)),
               ),
               Expanded(
                 flex: 1,

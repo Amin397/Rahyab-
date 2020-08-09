@@ -1,11 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
-import 'package:rahyab/other/zoom_scaffold.dart';
 
 class MenuScreen extends StatelessWidget {
+
   final List<MenuItem> options = [
     MenuItem(Icons.person, 'پروفایل'),
     MenuItem(Icons.credit_card, 'مدیریت کارت'),
@@ -16,96 +12,42 @@ class MenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    return GestureDetector(
-      onPanUpdate: (details) {
-        //on swiping left
-//        if (details.delta.dx > 0) {
-//          Provider.of<MenuController>(context, listen: true).toggle();
-//        }
-      },
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Container(
-          padding: EdgeInsets.only(top: 62, bottom: 8, left: size.width / 2.9),
-          color: Color(0xff290d66),
-          child: Column(
-            children: <Widget>[
-              _buildMenuProfilePic(size),
-              Spacer(),
-              GestureDetector(
-                onTap: () {},
-                child: ListTile(
-                  leading: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                  title: Text(
-                    'پروفایل',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white, fontFamily: 'iranSance'),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-//                  Provider.of<MenuController>(context, listen: true).toggle();
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Container(
+        padding: EdgeInsets.only(top: 62, bottom: 8, left: size.width / 2.9),
+        color: Color(0xff290d66),
+        child: Column(
+          children: <Widget>[
+            _buildMenuProfilePic(size),
+            Spacer(),
+            _buildMenuOption(size, (){}, Icons.person, 'پروفایل'),
+            _buildMenuOption(size, (){}, Icons.credit_card, 'مدیریت کارت'),
+            _buildMenuOption(size, (){}, Icons.assignment, 'صورتحساب'),
+            Spacer(),
+            _buildMenuOption(size, (){}, Icons.vpn_key, 'تغییر رمزعبور'),
+            _buildMenuOption(size, (){}, Icons.exit_to_app, 'خروج'),
+          ],
+        ),
+      ),
+    );
+  }
 
-                },
-                child: ListTile(
-                  leading: Icon(
-                    Icons.credit_card,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                  title: Text(
-                    'مدیریت کارت',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white, fontFamily: 'iranSance'),
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.assignment,
-                  color: Colors.white,
-                  size: 20,
-                ),
-                title: Text(
-                  'صورتحساب',
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white, fontFamily: 'iranSance'),
-                ),
-              ),
-              Spacer(),
-              ListTile(
-                onTap: () {},
-                leading: Icon(
-                  Icons.vpn_key,
-                  color: Colors.white,
-                  size: 20,
-                ),
-                title: Text('تغییر رمز عبور',
-                    style: TextStyle(fontSize: 14, color: Colors.white , fontFamily: 'iranSance')),
-              ),
-              ListTile(
-                onTap: () {},
-                leading: Icon(
-                  Icons.exit_to_app,
-                  color: Colors.white,
-                  size: 20,
-                ),
-                title: Text('خروج',
-                    style: TextStyle(fontSize: 14, color: Colors.white, fontFamily: 'iranSance')),
-              ),
-            ],
-          ),
+  Widget _buildMenuOption(Size size , Function func , icon , text){
+    return GestureDetector(
+      onTap: func,
+      child: ListTile(
+        leading: Icon(
+          icon,
+          color: Colors.white,
+          size: 20,
+        ),
+        title: Text(
+          text,
+          style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.white, fontFamily: 'iranSance'),
         ),
       ),
     );

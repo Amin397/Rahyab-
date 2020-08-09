@@ -7,7 +7,7 @@ import 'item_detailes_click.dart';
 
 class ItemsDetails extends StatefulWidget {
   String categorieText;
-  Icon categorieIcon;
+  String categorieIcon;
 
   ItemsDetails(this.categorieText, this.categorieIcon);
 
@@ -53,23 +53,31 @@ class _ItemsDetailsState extends State<ItemsDetails>
           width: size.width,
           child: Column(
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(vertical: size.height * .03),
-                height: size.height * .2,
-                width: size.width,
-                decoration: BoxDecoration(
-                  color: Color(0xff290d66),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
-              ),
-              Container(
-                height: size.height * .55,
-                width: size.width,
-                child: _gridDetailsItems(context, size),
-              )
+              _buildTopBanner(size),
+              _buildBottomPartGridView(size)
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildBottomPartGridView(Size size){
+    return Container(
+      height: size.height * .55,
+      width: size.width,
+      child: _gridDetailsItems(context, size),
+    );
+  }
+
+  Widget _buildTopBanner(Size size){
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: size.height * .03),
+      height: size.height * .2,
+      width: size.width,
+      decoration: BoxDecoration(
+        color: Color(0xff290d66),
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
       ),
     );
   }
@@ -78,37 +86,45 @@ class _ItemsDetailsState extends State<ItemsDetails>
     return Container(
         child: Stack(
           children: <Widget>[
-            Container(
-              child: PageView.builder(
-                physics: BouncingScrollPhysics(),
-                controller: pageController,
-                itemCount: 3,
-                onPageChanged: (int indexP) {
-                  _currentPageNotifier.value = indexP;
-                },
-                itemBuilder: (BuildContext context, int indexP) {
-                  return _buildPageView(context, indexP, size);
-                },
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: size.height * .05,
-                child: SmoothPageIndicator(
-                  controller: pageController,
-                  count: 3,
-                  effect: ExpandingDotsEffect(
-                      dotHeight: 10.0,
-                      dotWidth: 10.0,
-                      dotColor: Color(0xff290d66),
-                      activeDotColor: Colors.yellow.shade700),
-                ),
-              ),
-            )
+            _buildPageViewOfGridView(size),
+            _buildIndicator(size),
           ],
         ),
       );
+  }
+
+  Widget _buildPageViewOfGridView(Size size){
+    return Container(
+      child: PageView.builder(
+        physics: BouncingScrollPhysics(),
+        controller: pageController,
+        itemCount: 3,
+        onPageChanged: (int indexP) {
+          _currentPageNotifier.value = indexP;
+        },
+        itemBuilder: (BuildContext context, int indexP) {
+          return _buildPageView(context, indexP, size);
+        },
+      ),
+    );
+  }
+
+  Widget _buildIndicator(Size size){
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        height: size.height * .05,
+        child: SmoothPageIndicator(
+          controller: pageController,
+          count: 3,
+          effect: ExpandingDotsEffect(
+              dotHeight: 10.0,
+              dotWidth: 10.0,
+              dotColor: Color(0xff290d66),
+              activeDotColor: Colors.yellow.shade700),
+        ),
+      ),
+    );
   }
 
   Widget _buildPageView(context, indexP, size) {

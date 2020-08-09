@@ -27,26 +27,13 @@ Future<Map> GetExpert(expertId) async {
   return res;
 }
 
-Future<void> setPref(name, pref) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setString(name, pref);
-}
-
-Future<String> getPref(name) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString(name);
-}
-
 Future<dynamic> makePostRequest(String API,Map params) async {
 //  params['token'] = '199d2addf2da5116b1accafcf4685f128df2ca69';
   var res = await Requests.post(API, body: params);
   return res.json();
 }
 
-Future<dynamic> makePostReg1(String API) async {
-  var res = await Requests.post(API);
-  return res.json();
-}
+
 
 //Future<PermissionStatus> _getLocationPermission() async {
 //  final PermissionStatus permission = await LocationPermissions()

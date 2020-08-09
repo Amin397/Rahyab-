@@ -51,21 +51,7 @@ class _SuccessRegPageState extends State<SuccessRegPage> with TickerProviderStat
             width: size.width,
             child: Column(
               children: <Widget>[
-                Lottie.asset(
-                    'assets/anim/register_success.json',
-                    controller: animationController,
-                    fit: BoxFit.contain,
-                    height: size.height * .4,
-                    width: size.width ,
-                    repeat: true,
-                  onLoaded: (composition) {
-                    // Configure the AnimationController with the duration of the
-                    // Lottie file and start the animation.
-                    animationController
-                      ..duration = composition.duration
-                      ..forward();
-                  },
-                ),
+                _buildLottieAnim(size),
                 Text('عضویت با موفقیت انجام شد' , style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
@@ -76,6 +62,24 @@ class _SuccessRegPageState extends State<SuccessRegPage> with TickerProviderStat
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildLottieAnim(Size size){
+    return Lottie.asset(
+      'assets/anim/register_success.json',
+      controller: animationController,
+      fit: BoxFit.contain,
+      height: size.height * .4,
+      width: size.width ,
+      repeat: true,
+      onLoaded: (composition) {
+        // Configure the AnimationController with the duration of the
+        // Lottie file and start the animation.
+        animationController
+          ..duration = composition.duration
+          ..forward();
+      },
     );
   }
 }

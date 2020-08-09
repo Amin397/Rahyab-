@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:rahyab/other/zoom_scaffold.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import 'menu_page.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -86,12 +83,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     )..addListener(() => setState(() {}));
 
     pageController = PageController(initialPage: 1);
-  }
-
-  @override
-  void dispose() {
-//    menuController.dispose();
-    super.dispose();
   }
 
   @override
