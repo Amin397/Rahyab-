@@ -1,11 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:rahyab/main.dart';
+import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/screens/mainScreen.dart';
-import 'package:rahyab/screens/main_pages/page_view/pazirandegan_items_detailes/main_details_screen.dart';
 
 class SuccessRegPage extends StatefulWidget {
   @override
@@ -17,11 +14,8 @@ class _SuccessRegPageState extends State<SuccessRegPage> with TickerProviderStat
   AnimationController animationController;
 
   startTime() async {
-    return new Timer(Duration(seconds: 8), (){
-      Navigator.pushReplacement(
-          context,
-          PageTransition(
-              type: PageTransitionType.upToDown, child: MyHomePage()));
+    return new Timer(Duration(seconds: 7), (){
+      NavHelper.pushR(context, MyHomePage());
     });
   }
 
@@ -74,8 +68,6 @@ class _SuccessRegPageState extends State<SuccessRegPage> with TickerProviderStat
       width: size.width ,
       repeat: true,
       onLoaded: (composition) {
-        // Configure the AnimationController with the duration of the
-        // Lottie file and start the animation.
         animationController
           ..duration = composition.duration
           ..forward();

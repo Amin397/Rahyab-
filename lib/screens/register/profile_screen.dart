@@ -2,13 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:load/load.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/RequestHelper.dart';
-import 'package:rahyab/functions.dart';
 import 'package:rahyab/screens/register/success_page.dart';
 
 class ProfilePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -21,7 +19,6 @@ class ProfilePage extends StatelessWidget {
 }
 
 class ProfileScreen extends StatefulWidget {
-
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -49,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             fit: StackFit.expand,
             children: <Widget>[
               _buildProfileBg(size),
-              _profileForm(size , contentHeight)
+              _profileForm(size, contentHeight)
             ],
           ),
         ),
@@ -57,7 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _profileForm(Size size , contentHeight){
+  Widget _profileForm(Size size, contentHeight) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: SingleChildScrollView(
@@ -87,8 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(
-                            bottom: contentHeight * .02),
+                        padding: EdgeInsets.only(bottom: contentHeight * .02),
                         child: Text(
                           'تکمیل پروفایل',
                           style: TextStyle(
@@ -113,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildRePasswordTextField(Size size){
+  Widget _buildRePasswordTextField(Size size) {
     return Padding(
       padding: EdgeInsets.only(
         left: size.height * .01,
@@ -136,40 +132,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
           decoration: InputDecoration(
               alignLabelWithHint: true,
               labelStyle: TextStyle(
-                  fontFamily: 'iranSance',
-                  color: Colors.grey,
-                  fontSize: 14.0),
+                  fontFamily: 'iranSance', color: Colors.grey, fontSize: 14.0),
               labelText: 'تکرار رمز عبور',
               filled: true,
               suffixIcon: (isSamed)
                   ? Icon(
-                Icons.check_circle,
-                color: Colors.green,
-              )
+                      Icons.check_circle,
+                      color: Colors.green,
+                    )
                   : Icon(
-                Icons.cancel,
-                color: Colors.red,
-              ),
+                      Icons.cancel,
+                      color: Colors.red,
+                    ),
               fillColor: Colors.grey[200],
               enabledBorder: new OutlineInputBorder(
-                borderRadius:
-                new BorderRadius.circular(25.0),
+                borderRadius: new BorderRadius.circular(25.0),
                 borderSide: new BorderSide(
                   color: Color(0xff290d66),
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                  borderRadius:
-                  BorderRadius.circular(25.0),
-                  borderSide: BorderSide(
-                      color: Colors.blue))),
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(color: Colors.blue))),
           style: TextStyle(color: Colors.blue),
         ),
       ),
     );
   }
 
-  Widget _buildRaisedButton(Size size){
+  Widget _buildRaisedButton(Size size) {
     return RaisedButton(
       elevation: 5.0,
       color: Colors.green,
@@ -220,7 +211,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildUploadImage(Size size , contentHeight){
+  Widget _buildUploadImage(Size size, contentHeight) {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
@@ -231,16 +222,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             border: Border.all(width: .5),
             boxShadow: [
               BoxShadow(
-                  color: Color(0xff290d66),
-                  blurRadius: 5.0,
-                  spreadRadius: 0.5),
+                  color: Color(0xff290d66), blurRadius: 5.0, spreadRadius: 0.5),
             ]),
         child: Center(
           child: Column(
-            mainAxisAlignment:
-            MainAxisAlignment.center,
-            crossAxisAlignment:
-            CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Icon(
                 Icons.camera_alt,
@@ -249,9 +236,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               Text(
                 'آپلود تصویر',
-                style: TextStyle(
-                    fontFamily: 'iranSance',
-                    color: Colors.grey),
+                style: TextStyle(fontFamily: 'iranSance', color: Colors.grey),
               )
             ],
           ),
@@ -260,7 +245,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildProfileBg(Size size){
+  Widget _buildProfileBg(Size size) {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
@@ -270,21 +255,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
-                image: Image.asset('assets/images/background.jpg')
-                    .image)),
+                image: Image.asset('assets/images/background.jpg').image)),
         child: Center(
           child: Column(
             children: <Widget>[
               Container(
-                margin:
-                EdgeInsets.only(top: (size.width * .35) * .05),
+                margin: EdgeInsets.only(top: (size.width * .35) * .05),
                 width: size.width * .18,
                 height: (size.height * .35) * .25,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: Image.asset('assets/images/logo.png')
-                            .image)),
+                        image: Image.asset('assets/images/logo.png').image)),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -300,8 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Text(
                     'RAHYAB',
                     style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                        fontWeight: FontWeight.w600, color: Colors.white),
                   ),
                 ],
               ),
@@ -312,32 +293,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  sendLastReg(){
+  sendLastReg() {
     if (isSamed) {
       showLoadingDialog();
       RequestHelper.makePost(
-          'http://admin.rahyabkish.ir/Customers/API/_register3?token=test&'
+              'http://admin.rahyabkish.ir/Customers/API/_register3?token=test&'
               'mobile=521652&'
               'fname=${fName.text}&'
               'lname=${lName.text}&'
               'password${password.text}&'
-              'avatar=text'
-      ).then((value) {
-        if(!value['result']["active"]){
+              'avatar=text')
+          .then((value) {
+        if (!value['result']["active"]) {
           hideLoadingDialog();
-          Navigator.pushReplacement(
-              context,
-              PageTransition(
-                  type: PageTransitionType.upToDown,
-                  child: SuccessRegPage()));
-        }else{
-
-        }
+          NavHelper.pushR(context, SuccessRegPage());
+        } else {}
       });
     } else {
-      _showSnackBar(
-          'تکرار رمز عبور یکسان نیست !',
-          context);
+      _showSnackBar('تکرار رمز عبور یکسان نیست !', context);
     }
   }
 

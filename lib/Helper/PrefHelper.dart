@@ -18,6 +18,18 @@ class PrefHelper
 
 
 
+  static Future<void> userMobileSet(pref) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userMobile', pref);
+  }
+  static Future<String> userMobileGet() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('userMobile');
+  }
+
+
+
+
   static Future<List<WorkModel>> getWorkGroup() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var s =  prefs.getString('workGroup');

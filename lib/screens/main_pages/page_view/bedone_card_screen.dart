@@ -2,8 +2,8 @@ import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/RequestHelper.dart';
-import 'package:rahyab/functions.dart';
 import 'package:rahyab/model/qr_code_model/qr_model.dart';
 import 'pazirandegan_items_detailes/main_details_screen.dart';
 
@@ -14,20 +14,21 @@ class KharidBedoneCard extends StatefulWidget {
 
 class _KharidBedoneCardState extends State<KharidBedoneCard>
     with TickerProviderStateMixin {
+
   AnimationController anim_controller;
 
   QrModel qrModel;
 
   @override
-  void dispose() {
-    super.dispose();
-    anim_controller.dispose();
-  }
-
-  @override
   void initState() {
     super.initState();
     anim_controller = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    anim_controller.dispose();
+    super.dispose();
   }
 
   String qrScanner = '';
@@ -81,8 +82,8 @@ class _KharidBedoneCardState extends State<KharidBedoneCard>
       child: Material(
         elevation: 5.0,
         child: Container(
-          height: 100.0,
-          width: 100.0,
+          height: 150.0,
+          width: 150.0,
           color: Colors.white,
           child: Align(
             alignment: Alignment.center,
@@ -113,26 +114,13 @@ class _KharidBedoneCardState extends State<KharidBedoneCard>
           setState(() {
             qrModel = QrModel.fromJson(value);
           });
-          Navigator.pushReplacement(
-              context,
-              PageTransition(
-                  type: PageTransitionType.upToDown,
-                  child: MainDetailScreen(
-                      qrModel.result.senfUnitName.toString(),
-                      'assets/images/coffee_logo.png',
-                      qrModel.result.desc)));
+          NavHelper.pushR(context, MainDetailScreen(
+              qrModel.result.senfUnitName.toString(),
+              'assets/images/coffee_logo.png',
+              qrModel.result.desc));
         }
       });
       print(qrScanner.toString());
     });
   }
-
-//  _launchURL() async {
-//    String url = qrScanner;
-//    if (await canLaunch(url)) {
-//      await launch(url);
-//    } else {
-//      throw 'Could not launch $url';
-//    }
-//  }
 }

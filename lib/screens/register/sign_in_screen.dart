@@ -6,9 +6,9 @@ import 'package:lottie/lottie.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pinput/pin_put/pin_put.dart';
+import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/PrefHelper.dart';
 import 'package:rahyab/Helper/RequestHelper.dart';
-import '../../functions.dart';
 import 'profile_screen.dart';
 
 class SignInPage extends StatelessWidget {
@@ -171,7 +171,7 @@ class _SignInScreenState extends State<SignInScreen>
     }
   }
 
-  Widget _buildReadLogic(Size size){
+  _buildReadLogic(Size size){
     return Row(
       mainAxisAlignment:
       MainAxisAlignment.spaceBetween,
@@ -397,13 +397,9 @@ class _SignInScreenState extends State<SignInScreen>
     RequestHelper.makePost('http://admin.rahyabkish.ir/Customers/API/_register2?token=test&'
         'mobile=${phone_Number.text}&code=${code.toString()}').then((value) {
       if (value['result']['codeValid']) {
-        PrefHelper.setPref('userPhone', phone_Number.text);
+        PrefHelper.userMobileSet(phone_Number.text);
         hideLoadingDialog();
-        Navigator.pushReplacement(
-            context,
-            PageTransition(
-                type: PageTransitionType.upToDown,
-                child: ProfilePage()));
+        NavHelper.pushR(context, ProfilePage());
       } else {
         hideLoadingDialog();
         _showSnackBar('کد اشتباه است', context);
