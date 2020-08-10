@@ -2,15 +2,15 @@
 class WorkModel
 {
 
-  int work_id;
-  String work_name;
-  String work_icon;
+  int id;
+  String name;
+  String icon;
 
-  WorkModel(this.work_id, this.work_name, this.work_icon);
+  WorkModel(this.id, this.name, this.icon);
 
   factory WorkModel.fromJson(Map<String, dynamic> json) => WorkModel(
         json['id'],
-        json['work_name'],
-        json['work_icon'],
+        json['name'],
+        json['icon'],
       );
 }

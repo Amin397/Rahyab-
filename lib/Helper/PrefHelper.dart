@@ -45,7 +45,4 @@ class PrefHelper
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('workGroup' , jsonEncode(t));
   }
-
-
-
 }

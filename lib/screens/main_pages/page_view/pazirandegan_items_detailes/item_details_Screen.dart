@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import 'package:rahyab/Helper/NavHelper.dart';
+import 'package:rahyab/Helper/RequestHelper.dart';
+import 'package:rahyab/model/CastesModel.dart';
 import 'item_detailes_click.dart';
 
 class ItemsDetails extends StatefulWidget {
-  String categorieText;
-  String categorieIcon;
 
-  ItemsDetails(this.categorieText, this.categorieIcon);
+  String categorieText;
+  int work_id;
+
+  ItemsDetails(this.categorieText, this.work_id);
 
   @override
   _ItemsDetailsState createState() => _ItemsDetailsState();
@@ -17,25 +18,34 @@ class ItemsDetails extends StatefulWidget {
 
 class _ItemsDetailsState extends State<ItemsDetails>
     with TickerProviderStateMixin {
-  PageController pageController;
 
-  final _currentPageNotifier = ValueNotifier<int>(0);
+  List<CastesModel> list = List();
 
-  @override
-  void initState() {
-    super.initState();
+  init() async
+  {
+    await RequestHelper.makeGetSenf(widget.work_id).then((value) => {
+      for(var i in value){
+        list.add(i)
+      }
+    });
+    print(list.length);
+    setState(() {
 
-    pageController = PageController(initialPage: 1);
+    });
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    pageController.dispose();
+  void initState() {
+
+    init();
+
+    super.initState();
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     var size = MediaQuery.of(context).size;
 
     return Directionality(
@@ -54,19 +64,14 @@ class _ItemsDetailsState extends State<ItemsDetails>
           child: Column(
             children: <Widget>[
               _buildTopBanner(size),
-              _buildBottomPartGridView(size)
+              Expanded(
+                flex: 1,
+                child: _buildPageView(context, size),
+              )
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildBottomPartGridView(Size size){
-    return Container(
-      height: size.height * .55,
-      width: size.width,
-      child: _gridDetailsItems(context, size),
     );
   }
 
@@ -82,75 +87,26 @@ class _ItemsDetailsState extends State<ItemsDetails>
     );
   }
 
-  Widget _gridDetailsItems(context, size) {
-    return Container(
-        child: Stack(
-          children: <Widget>[
-            _buildPageViewOfGridView(size),
-            _buildIndicator(size),
-          ],
-        ),
-      );
-  }
-
-  Widget _buildPageViewOfGridView(Size size){
-    return Container(
-      child: PageView.builder(
-        physics: BouncingScrollPhysics(),
-        controller: pageController,
-        itemCount: 3,
-        onPageChanged: (int indexP) {
-          _currentPageNotifier.value = indexP;
-        },
-        itemBuilder: (BuildContext context, int indexP) {
-          return _buildPageView(context, indexP, size);
-        },
-      ),
-    );
-  }
-
-  Widget _buildIndicator(Size size){
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        height: size.height * .05,
-        child: SmoothPageIndicator(
-          controller: pageController,
-          count: 3,
-          effect: ExpandingDotsEffect(
-              dotHeight: 10.0,
-              dotWidth: 10.0,
-              dotColor: Color(0xff290d66),
-              activeDotColor: Colors.yellow.shade700),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPageView(context, indexP, size) {
+  Widget _buildPageView(context, size) {
     return Container(
       child: Center(
         child: GridView.builder(
           physics: BouncingScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, mainAxisSpacing: 10),
-          itemBuilder: (_, indexG) => _buildItemsOfGridView(indexG, size),
-          itemCount: switchText().length,
+              crossAxisCount: 3, mainAxisSpacing: size.height * .03),
+          itemBuilder: (context, index) => _buildItemsOfGridView(index, size),
+          itemCount: list.length,
         ),
       ),
     );
   }
 
-  Widget _buildItemsOfGridView(indexG, size) {
+  Widget _buildItemsOfGridView(index, size) {
     return Column(
       children: <Widget>[
         InkWell(
           onTap: () {
-            Navigator.push(
-                context,
-                PageTransition(
-                    type: PageTransitionType.downToUp,
-                    child: ItemDetailsClick(switchText()[indexG] , widget.categorieText)));
+            NavHelper.pushR(context, ItemDetailsClick(list[index].name , widget.categorieText));
           },
           child: Container(
             margin: EdgeInsets.all(size.width * .01),
@@ -166,7 +122,7 @@ class _ItemsDetailsState extends State<ItemsDetails>
             ),
             child: Center(
               child: Text(
-                switchText()[indexG],
+                list[index].name,
                 style: TextStyle(
                     fontSize: 12.0,
                     color: Color(0xff290d66),
@@ -179,80 +135,80 @@ class _ItemsDetailsState extends State<ItemsDetails>
     );
   }
 
-  List<String> switchText() {
-    switch (widget.categorieText) {
-      case 'تفریح و سرگرمی':
-        {
-          return [
-            'اتاق فرار',
-            'پینت بال',
-            'PS4',
-            'زیپ لاین',
-            'کافه',
-          ];
-        }
-      case 'پوشاک':
-        {
-          return [
-            'لباس',
-            'کفش',
-            'جوراب',
-            'شلوار',
-            'شلوار کتان',
-          ];
-        }
-      case 'هایپرمارکت':
-        {
-          return [
-            'سوپرگوشت',
-            'سوپرسبزیجات',
-            'سوپرنان',
-          ];
-        }
-      case 'رستوران':
-        {
-          return [
-            'اسپانیایی',
-            'ایتالیایی',
-            'سنتی',
-            'فست فود',
-            'سرد',
-            'آش فروشی',
-          ];
-        }
-      case 'کافه':
-        {
-          return [
-            'کافه کتاب',
-            'کافه رستوران',
-            'ایلی',
-            'سورن',
-            'کاج',
-            'شاندیز',
-            'ساویز',
-            'رومانو',
-          ];
-        }
-      case 'ورزشی':
-        {
-          return [
-            'سالن بعثت',
-            'سالن فلق',
-            'سالن بهنام',
-            'سالن مهر',
-            'سالن فرهنگیان',
-            'استخرفلق',
-            'استخر معلم',
-          ];
-        }
-      case 'شهر بازی':
-        {
-          return [
-            'آشتی',
-            'دوستان',
-            'ستاره',
-          ];
-        }
-    }
-  }
+//  List<String> switchText() {
+//    switch (widget.categorieText) {
+//      case 'تفریح و سرگرمی':
+//        {
+//          return [
+//            'اتاق فرار',
+//            'پینت بال',
+//            'PS4',
+//            'زیپ لاین',
+//            'کافه',
+//          ];
+//        }
+//      case 'پوشاک':
+//        {
+//          return [
+//            'لباس',
+//            'کفش',
+//            'جوراب',
+//            'شلوار',
+//            'شلوار کتان',
+//          ];
+//        }
+//      case 'هایپرمارکت':
+//        {
+//          return [
+//            'سوپرگوشت',
+//            'سوپرسبزیجات',
+//            'سوپرنان',
+//          ];
+//        }
+//      case 'رستوران':
+//        {
+//          return [
+//            'اسپانیایی',
+//            'ایتالیایی',
+//            'سنتی',
+//            'فست فود',
+//            'سرد',
+//            'آش فروشی',
+//          ];
+//        }
+//      case 'کافه':
+//        {
+//          return [
+//            'کافه کتاب',
+//            'کافه رستوران',
+//            'ایلی',
+//            'سورن',
+//            'کاج',
+//            'شاندیز',
+//            'ساویز',
+//            'رومانو',
+//          ];
+//        }
+//      case 'ورزشی':
+//        {
+//          return [
+//            'سالن بعثت',
+//            'سالن فلق',
+//            'سالن بهنام',
+//            'سالن مهر',
+//            'سالن فرهنگیان',
+//            'استخرفلق',
+//            'استخر معلم',
+//          ];
+//        }
+//      case 'شهر بازی':
+//        {
+//          return [
+//            'آشتی',
+//            'دوستان',
+//            'ستاره',
+//          ];
+//        }
+//    }
+//  }
 }

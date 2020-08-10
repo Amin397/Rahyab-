@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/PrefHelper.dart';
 import 'package:rahyab/model/WorkModel.dart';
 import 'pazirandegan_items_detailes/item_details_Screen.dart';
-import 'package:http/http.dart' as http;
 
 class Pazirandegan extends StatefulWidget {
   @override
@@ -109,7 +107,7 @@ class _PazirandeganState extends State<Pazirandegan>
   Widget _buildItemsOfGridView(indexG, size) {
     return InkWell(
       onTap: () {
-        NavHelper.push(context, ItemsDetails(list[indexG].work_name , list[indexG].work_icon));
+        NavHelper.push(context, ItemsDetails(list[indexG].name , list[indexG].id));
       },
       child: Column(
         children: <Widget>[
@@ -131,7 +129,7 @@ class _PazirandeganState extends State<Pazirandegan>
             ),
           ),
           Text(
-            list[indexG].work_name,
+            list[indexG].name,
             style: TextStyle(fontSize: 12.0),
           )
         ],

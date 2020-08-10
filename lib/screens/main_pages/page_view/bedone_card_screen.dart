@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/RequestHelper.dart';
-import 'package:rahyab/model/qr_code_model/qr_model.dart';
+import 'file:///I:/Rahyab/rahyab/lib/model/qr_model.dart';
 import 'pazirandegan_items_detailes/main_details_screen.dart';
 
 class KharidBedoneCard extends StatefulWidget {
