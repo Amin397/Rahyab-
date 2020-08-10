@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:load/load.dart';
 import 'package:lottie/lottie.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:rahyab/Helper/ConnHelper.dart';
 import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/PrefHelper.dart';
 import 'package:rahyab/model/WorkModel.dart';
@@ -28,101 +26,37 @@ class _SplashScreenState extends State<SplashScreen>
     });
   }
 
-  init(){
-     Timer(Duration(seconds: 3), (){
-       _checkInternetConnectivity();
-     });
-  }
-
   _checkInternetConnectivity() async {
     var result = await Connectivity().checkConnectivity();
     if(result != ConnectivityResult.none){
       await apiWork();
     }else{
-      showDialog(
-        barrierDismissible: false,
-          context: context,
-          builder: (_) => Directionality(
-            textDirection: TextDirection.rtl,
-            child: AlertDialog(
-              actions: <Widget>[
-                GestureDetector(
-                  onTap: (){
-                    Navigator.pop(context);
-                    init();
-                  },
-                  child: Container(
-                    height: 50.0,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(35.0),
-                      color: Colors.orangeAccent,
-                    ),
-                    child: Center(
-                      child: Text('تلاش مجدد' , style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'iranSance'
-                      ),),
-                    ),
-                  ),
-                )
-              ],
-              scrollable: true,
-              backgroundColor: Colors.transparent,
-              elevation: 50.0,
-              content: _buildContentAlert(),
-            ),
-          )
-      );
+      ConnHelper.splashDialog(context , () {
+        Timer(Duration(seconds: 2), (){
+          _checkInternetConnectivity();
+        });
+      });
     }
   }
-  Widget _buildContentAlert(){
-    return Container(
-      padding: EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10.0)
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            height: 80.0,
-            child: Center(
-              child: Icon(Icons.warning , size: 50.0, color: Colors.purple[300],),
-            ),
-          ),
-          Text('اتصال به اینترنت خود را بررسی کنید !' , style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 14.0,
-            fontFamily: 'iranSance'
-          ),)
-        ],
-      ),
-    );
-  }
-
-
 
   apiWork() async
   {
-    http.Response r = await http
-        .get(
-        'http://admin.rahyabkish.ir/WorkGroups/API/_getWorkGroup?token=test');
-    if (r.statusCode == 200) {
-      Map<String, dynamic> b = jsonDecode(r.body);
+    try{
+      http.Response r = await http
+          .get(
+          'http://admin.rahyabkish.ir/WorkGroups/API/_getWorkGroup?token=test');
+      if (r.statusCode == 200) {
+        Map<String, dynamic> b = jsonDecode(r.body);
 //      print(b['data']);
 //      for (var item in b['data']) {
 //        print('- apiWork');
 //        print(item['work_id']);
 //        list.add(WorkModel.fromJson(item));
-
-      print('%%%%%%%%%%%%%%%%%%%%%%%%%');
-      await PrefHelper.setWorkGroup(b['data']);
-      print('%%%%%%%%%%%%%%%%%%%%%%%%%');
-      startTime();
+        await PrefHelper.setWorkGroup(b['data']);
+        startTime();
+      }
+    }catch(e){
+      print(e.toString());
     }
   }
 
@@ -130,10 +64,8 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    init();
+    _checkInternetConnectivity();
     //startTime();
-
-
   }
 
   @override
