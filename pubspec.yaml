@@ -50,6 +50,7 @@ dependencies:
   animated_bottom_navigation_bar: ^0.1.2+2
   mask_text_input_formatter: ^1.0.7
   pinput: ^0.2.4
+  google_maps_flutter: ^0.5.29
   qr_code_scanner:
 
 flutter_icons:

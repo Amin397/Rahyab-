@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rahyab/Helper/ConnHelper.dart';
+import 'package:rahyab/Helper/AlertHelper.dart';
 import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/PrefHelper.dart';
 import 'package:rahyab/model/WorkModel.dart';
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen>
     if(result != ConnectivityResult.none){
       await apiWork();
     }else{
-      ConnHelper.splashDialog(context , () {
+      AlertHelper.splashDialog(context , () {
         Timer(Duration(seconds: 2), (){
           _checkInternetConnectivity();
         });

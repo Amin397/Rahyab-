@@ -36,11 +36,8 @@ class _ItemsDetailsState extends State<ItemsDetails>
 
   @override
   void initState() {
-
     init();
-
     super.initState();
-
   }
 
   @override
@@ -54,7 +51,10 @@ class _ItemsDetailsState extends State<ItemsDetails>
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
           backgroundColor: Color(0xff290d66),
-          title: Text(widget.categorieText),
+          title: Text(widget.categorieText , style: TextStyle(
+            fontFamily: 'iranSance',
+            fontSize: 16.0
+          ),),
         ),
         body: Container(
           padding: EdgeInsets.symmetric(
@@ -106,16 +106,17 @@ class _ItemsDetailsState extends State<ItemsDetails>
       children: <Widget>[
         InkWell(
           onTap: () {
-            NavHelper.pushR(context, ItemDetailsClick(list[index].name , widget.categorieText));
+            NavHelper.push(context, ItemDetailsClick(list[index].name , widget.categorieText));
           },
           child: Container(
-            margin: EdgeInsets.all(size.width * .01),
+            padding: EdgeInsets.all(5.0),
+            margin: EdgeInsets.all(size.width * .02),
             height: size.height * .12,
             width: size.height * .12,
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                    color: Colors.yellow.shade700, blurRadius: 5.0, spreadRadius: .8)
+                    color: Colors.black38, blurRadius: 7.0, spreadRadius: .8)
               ],
               shape: BoxShape.circle,
               color: Colors.white,
@@ -123,9 +124,11 @@ class _ItemsDetailsState extends State<ItemsDetails>
             child: Center(
               child: Text(
                 list[index].name,
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontSize: 12.0,
-                    color: Color(0xff290d66),
+                    fontSize: 11.0,
+                    fontFamily: 'iranSance',
+                    color: Colors.black,
                     fontWeight: FontWeight.w600),
               ),
             ),
@@ -134,81 +137,4 @@ class _ItemsDetailsState extends State<ItemsDetails>
       ],
     );
   }
-
-//  List<String> switchText() {
-//    switch (widget.categorieText) {
-//      case 'تفریح و سرگرمی':
-//        {
-//          return [
-//            'اتاق فرار',
-//            'پینت بال',
-//            'PS4',
-//            'زیپ لاین',
-//            'کافه',
-//          ];
-//        }
-//      case 'پوشاک':
-//        {
-//          return [
-//            'لباس',
-//            'کفش',
-//            'جوراب',
-//            'شلوار',
-//            'شلوار کتان',
-//          ];
-//        }
-//      case 'هایپرمارکت':
-//        {
-//          return [
-//            'سوپرگوشت',
-//            'سوپرسبزیجات',
-//            'سوپرنان',
-//          ];
-//        }
-//      case 'رستوران':
-//        {
-//          return [
-//            'اسپانیایی',
-//            'ایتالیایی',
-//            'سنتی',
-//            'فست فود',
-//            'سرد',
-//            'آش فروشی',
-//          ];
-//        }
-//      case 'کافه':
-//        {
-//          return [
-//            'کافه کتاب',
-//            'کافه رستوران',
-//            'ایلی',
-//            'سورن',
-//            'کاج',
-//            'شاندیز',
-//            'ساویز',
-//            'رومانو',
-//          ];
-//        }
-//      case 'ورزشی':
-//        {
-//          return [
-//            'سالن بعثت',
-//            'سالن فلق',
-//            'سالن بهنام',
-//            'سالن مهر',
-//            'سالن فرهنگیان',
-//            'استخرفلق',
-//            'استخر معلم',
-//          ];
-//        }
-//      case 'شهر بازی':
-//        {
-//          return [
-//            'آشتی',
-//            'دوستان',
-//            'ستاره',
-//          ];
-//        }
-//    }
-//  }
 }

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rahyab/Helper/NavHelper.dart';
 
 import 'main_details_screen.dart';
 
 class ItemDetailsClick extends StatefulWidget {
   String parentName;
-  String switchName;
+  String castsName;
 
-  ItemDetailsClick(this.switchName, this.parentName);
+  ItemDetailsClick(this.castsName, this.parentName);
 
   @override
   _ItemDetailsClickState createState() => _ItemDetailsClickState();
@@ -106,10 +107,7 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
                         bottom: size.height * .03),
                     child: InkWell(
                       onTap: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    MainDetailScreen(listDet[index].name , listDet[index].imagePath , listDet[index].description)));
+                        NavHelper.push(context, MainDetailScreen(listDet[index].name , listDet[index].imagePath , listDet[index].description));
                       },
                       child: _buildListViewIcons(context, index),
                     ),
@@ -127,7 +125,7 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
     return AppBar(
       backgroundColor: Color(0xff290d66),
       title: Text(
-        '${widget.parentName} / ${widget.switchName}',
+        '${widget.parentName} / ${widget.castsName}',
         style: TextStyle(fontSize: 14.0, fontFamily: 'IRANSans'),
       ),
     );
@@ -173,7 +171,7 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      ' ${widget.switchName}',
+                      ' ${widget.castsName}',
                       style: TextStyle(
                           fontSize: 18.0, fontWeight: FontWeight.w600),
                     ),

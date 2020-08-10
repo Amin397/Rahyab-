@@ -29,7 +29,6 @@ class RequestHelper
         Map<String, dynamic> b = jsonDecode(r.body);
 
         for (var items in b['result']) {
-          print(items);
           l.add(CastesModel.fromJson(items));
         }
 //      print(b['data']);
