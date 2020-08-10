@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:rahyab/model/WorkModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,7 +35,6 @@ class PrefHelper
     List<WorkModel> l = List<WorkModel>();
     for(var i in jsonDecode(s))
     {
-      print(i);
       l.add(WorkModel.fromJson(i));
     }
     return l;

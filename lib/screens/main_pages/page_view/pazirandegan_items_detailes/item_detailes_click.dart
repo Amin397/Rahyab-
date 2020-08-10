@@ -1,49 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rahyab/Helper/NavHelper.dart';
+import 'package:rahyab/Helper/RequestHelper.dart';
+import 'package:rahyab/model/ProviderModel.dart';
 
 import 'main_details_screen.dart';
 
 class ItemDetailsClick extends StatefulWidget {
   String parentName;
   String castsName;
+  int castId;
 
-  ItemDetailsClick(this.castsName, this.parentName);
+  ItemDetailsClick(this.castsName, this.parentName , this.castId);
 
   @override
   _ItemDetailsClickState createState() => _ItemDetailsClickState();
 }
 
-class listDetails {
-  String imagePath;
-  String name;
-  String description;
-
-  listDetails(this.imagePath, this.name, this.description);
-}
-
 class _ItemDetailsClickState extends State<ItemDetailsClick> {
   ScrollController _scrollController;
 
-  List<listDetails> listDet = [
-    listDetails('assets/images/coffee_logo.png', 'کافه رومانو',
-        'کافه بین المللی رومانو با سابقه 4 ساله در راستای ارائه خ المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کندمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کند'),
-    listDetails('assets/images/coffee_logo.png', 'کافه رومانو',
-        'کافه بین المللی رومانو با سابقه 4 ساله در راستای ارائه خد المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کنمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کند'),
-    listDetails('assets/images/coffee_logo.png', 'کافه رومانو',
-        'کافه بین المللی رومانو با سابقه 4 ساله در راستای ارائه خ المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کندمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کند'),
-    listDetails('assets/images/coffee_logo.png', 'کافه رومانو',
-        'کافه بین المللی رومانو با سابقه 4 ساله در راستای ارائه خ المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کندمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کند'),
-    listDetails('assets/images/coffee_logo.png', 'کافه رومانو',
-        'کافه بین المللی رومانو با سابقه 4 ساله در راستای ارائه خدم المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کنات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کند'),
-    listDetails('assets/images/coffee_logo.png', 'کافه رومانو',
-        'کافه بین المللی رومانو با سابقه 4 ساله در راستای ارائه خدما المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کنت به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کند'),
-    listDetails('assets/images/coffee_logo.png', 'کافه رومانو',
-        'کافه بین المللی رومانو با سابقه 4 ساله در  المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کنراستای المللی رومانو با سابقه 4 ساله در راستای ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کن ارائه خدمات به مشتریان و عزیزان خود توانسته اعتماد زیادی را بین مشترین خود کسب کند'),
-  ];
+  List<ProviderModel> list = List();
+
+  init() async {
+    await RequestHelper.makeGetProvider(widget.castId).then((value) => {
+      for(var i in value){
+        list.add(i)
+      }
+    });
+    print(list.length);
+    setState(() {
+
+    });
+
+  }
 
   @override
   void initState() {
+    init();
     super.initState();
 
     _scrollController = ScrollController();
@@ -98,7 +92,7 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 controller: _scrollController,
-                itemCount: listDet.length,
+                itemCount: list.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: EdgeInsets.only(
@@ -107,7 +101,7 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
                         bottom: size.height * .03),
                     child: InkWell(
                       onTap: () {
-                        NavHelper.push(context, MainDetailScreen(listDet[index].name , listDet[index].imagePath , listDet[index].description));
+                        NavHelper.push(context, MainDetailScreen(list[index].name , 'assets/images/coffee_logo.png' , list[index].desc));
                       },
                       child: _buildListViewIcons(context, index),
                     ),
@@ -158,7 +152,7 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
               height: size.height,
               child: Center(
                 child: Image.asset(
-                  listDet[index].imagePath,
+                  'assets/images/coffee_logo.png',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -171,13 +165,13 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      ' ${widget.castsName}',
+                      ' ${list[index].name}',
                       style: TextStyle(
                           fontSize: 18.0, fontWeight: FontWeight.w600),
                     ),
                     Divider(),
                     Text(
-                      listDet[index].description,
+                      (list[index].desc.length < 2) ? text : list[index].desc,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: TextStyle(fontSize: 10.0),
@@ -191,4 +185,5 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
       ),
     );
   }
+  String text = 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.';
 }

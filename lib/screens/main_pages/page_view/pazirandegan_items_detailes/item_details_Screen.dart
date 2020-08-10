@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/RequestHelper.dart';
 import 'package:rahyab/model/CastesModel.dart';
+
 import 'item_detailes_click.dart';
 
 class ItemsDetails extends StatefulWidget {
-
   String categorieText;
   int work_id;
 
@@ -18,20 +18,13 @@ class ItemsDetails extends StatefulWidget {
 
 class _ItemsDetailsState extends State<ItemsDetails>
     with TickerProviderStateMixin {
-
   List<CastesModel> list = List();
 
-  init() async
-  {
+  init() async {
     await RequestHelper.makeGetSenf(widget.work_id).then((value) => {
-      for(var i in value){
-        list.add(i)
-      }
-    });
-    print(list.length);
-    setState(() {
-
-    });
+          for (var i in value) {list.add(i)}
+        });
+    setState(() {});
   }
 
   @override
@@ -42,7 +35,6 @@ class _ItemsDetailsState extends State<ItemsDetails>
 
   @override
   Widget build(BuildContext context) {
-
     var size = MediaQuery.of(context).size;
 
     return Directionality(
@@ -51,10 +43,10 @@ class _ItemsDetailsState extends State<ItemsDetails>
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
           backgroundColor: Color(0xff290d66),
-          title: Text(widget.categorieText , style: TextStyle(
-            fontFamily: 'iranSance',
-            fontSize: 16.0
-          ),),
+          title: Text(
+            widget.categorieText,
+            style: TextStyle(fontFamily: 'iranSance', fontSize: 16.0),
+          ),
         ),
         body: Container(
           padding: EdgeInsets.symmetric(
@@ -75,7 +67,7 @@ class _ItemsDetailsState extends State<ItemsDetails>
     );
   }
 
-  Widget _buildTopBanner(Size size){
+  Widget _buildTopBanner(Size size) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: size.height * .03),
       height: size.height * .2,
@@ -106,7 +98,10 @@ class _ItemsDetailsState extends State<ItemsDetails>
       children: <Widget>[
         InkWell(
           onTap: () {
-            NavHelper.push(context, ItemDetailsClick(list[index].name , widget.categorieText));
+            NavHelper.push(
+                context,
+                ItemDetailsClick(
+                    list[index].name, widget.categorieText, list[index].id));
           },
           child: Container(
             padding: EdgeInsets.all(5.0),
