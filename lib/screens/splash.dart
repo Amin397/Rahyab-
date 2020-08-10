@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:load/load.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/PrefHelper.dart';
 import 'package:rahyab/model/WorkModel.dart';
 import 'login_screen.dart';
@@ -20,21 +23,91 @@ class _SplashScreenState extends State<SplashScreen>
   List<WorkModel> list = List<WorkModel>();
 
   startTime() async {
-    return new Timer(Duration(seconds: 5), (){
-      Navigator.pushReplacement(
-          context,
-          PageTransition(
-              type: PageTransitionType.upToDown, child: LoginPage()));
+    return new Timer(Duration(seconds: 2), (){
+      NavHelper.pushR(context, LoginPage());
     });
   }
 
-  init()async{
-    apiWork();
+  init(){
+     Timer(Duration(seconds: 3), (){
+       _checkInternetConnectivity();
+     });
   }
+
+  _checkInternetConnectivity() async {
+    var result = await Connectivity().checkConnectivity();
+    if(result != ConnectivityResult.none){
+      await apiWork();
+    }else{
+      showDialog(
+        barrierDismissible: false,
+          context: context,
+          builder: (_) => Directionality(
+            textDirection: TextDirection.rtl,
+            child: AlertDialog(
+              actions: <Widget>[
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                    init();
+                  },
+                  child: Container(
+                    height: 50.0,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(35.0),
+                      color: Colors.orangeAccent,
+                    ),
+                    child: Center(
+                      child: Text('تلاش مجدد' , style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'iranSance'
+                      ),),
+                    ),
+                  ),
+                )
+              ],
+              scrollable: true,
+              backgroundColor: Colors.transparent,
+              elevation: 50.0,
+              content: _buildContentAlert(),
+            ),
+          )
+      );
+    }
+  }
+  Widget _buildContentAlert(){
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0)
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            height: 80.0,
+            child: Center(
+              child: Icon(Icons.warning , size: 50.0, color: Colors.purple[300],),
+            ),
+          ),
+          Text('اتصال به اینترنت خود را بررسی کنید !' , style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 14.0,
+            fontFamily: 'iranSance'
+          ),)
+        ],
+      ),
+    );
+  }
+
+
 
   apiWork() async
   {
-    showLoadingDialog();
     http.Response r = await http
         .get(
         'http://admin.rahyabkish.ir/WorkGroups/API/_getWorkGroup?token=test');
@@ -50,7 +123,6 @@ class _SplashScreenState extends State<SplashScreen>
       await PrefHelper.setWorkGroup(b['data']);
       print('%%%%%%%%%%%%%%%%%%%%%%%%%');
       startTime();
-      hideLoadingDialog();
     }
   }
 

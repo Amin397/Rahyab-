@@ -1,7 +1,6 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/RequestHelper.dart';
 import 'package:rahyab/model/qr_code_model/qr_model.dart';
@@ -16,7 +15,6 @@ class _KharidBedoneCardState extends State<KharidBedoneCard>
     with TickerProviderStateMixin {
 
   AnimationController anim_controller;
-
   QrModel qrModel;
 
   @override
