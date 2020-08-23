@@ -4,7 +4,8 @@ import 'package:lottie/lottie.dart';
 import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/RequestHelper.dart';
 import 'file:///I:/Rahyab/rahyab/lib/model/qr_model.dart';
-import 'pazirandegan_items_detailes/main_details_screen.dart';
+import 'package:rahyab/model/ProviderModel.dart';
+import 'package:rahyab/screens/main_pages/page_view/pazirandegan_items_detailes/main_provider_screen.dart';
 
 class KharidBedoneCard extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _KharidBedoneCardState extends State<KharidBedoneCard>
     with TickerProviderStateMixin {
 
   AnimationController anim_controller;
-  QrModel qrModel;
+  ProviderModel providerModel;
 
   @override
   void initState() {
@@ -110,12 +111,9 @@ class _KharidBedoneCardState extends State<KharidBedoneCard>
           .then((value) async {
         if (value['ok']) {
           setState(() {
-            qrModel = QrModel.fromJson(value);
+            providerModel = ProviderModel.fromJson(value);
           });
-          NavHelper.pushR(context, MainDetailScreen(
-              qrModel.result.senfUnitName.toString(),
-              'assets/images/coffee_logo.png',
-              qrModel.result.desc));
+          NavHelper.pushR(context,MainDetailScreen(providerModel));
         }
       });
       print(qrScanner.toString());

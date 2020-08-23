@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/PrefHelper.dart';
 import 'package:rahyab/model/WorkModel.dart';
-import 'pazirandegan_items_detailes/item_details_Screen.dart';
+import 'pazirandegan_items_detailes/castes_screen.dart';
 
 class Pazirandegan extends StatefulWidget {
   @override

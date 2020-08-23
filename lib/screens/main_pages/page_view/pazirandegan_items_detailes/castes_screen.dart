@@ -4,7 +4,7 @@ import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/RequestHelper.dart';
 import 'package:rahyab/model/CastesModel.dart';
 
-import 'item_detailes_click.dart';
+import 'sub_items_of_castes.dart';
 
 class ItemsDetails extends StatefulWidget {
   String categorieText;
@@ -18,6 +18,7 @@ class ItemsDetails extends StatefulWidget {
 
 class _ItemsDetailsState extends State<ItemsDetails>
     with TickerProviderStateMixin {
+
   List<CastesModel> list = List();
 
   init() async {

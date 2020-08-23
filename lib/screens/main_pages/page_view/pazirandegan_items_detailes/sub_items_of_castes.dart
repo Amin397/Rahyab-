@@ -4,7 +4,7 @@ import 'package:rahyab/Helper/NavHelper.dart';
 import 'package:rahyab/Helper/RequestHelper.dart';
 import 'package:rahyab/model/ProviderModel.dart';
 
-import 'main_details_screen.dart';
+import 'main_provider_screen.dart';
 
 class ItemDetailsClick extends StatefulWidget {
   String parentName;
@@ -101,7 +101,7 @@ class _ItemDetailsClickState extends State<ItemDetailsClick> {
                         bottom: size.height * .03),
                     child: InkWell(
                       onTap: () {
-                        NavHelper.push(context, MainDetailScreen(list[index].name , 'assets/images/coffee_logo.png' , list[index].desc));
+                        NavHelper.push(context, MainDetailScreen(list[index]));
                       },
                       child: _buildListViewIcons(context, index),
                     ),
