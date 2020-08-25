@@ -57,6 +57,11 @@ class _MainDetailScreenState extends State<MainDetailScreen>
                 child: _buildKharid(size),
               ),
               Padding(
+                padding: EdgeInsets.only(
+                    top: size.height * .03, bottom: size.height * .02),
+                child: _buildLocationContainer(size),
+              ),
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * .1),
                 child: Divider(),
               ),
@@ -76,13 +81,8 @@ class _MainDetailScreenState extends State<MainDetailScreen>
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                padding: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0 , bottom: size.height * .02),
                 child: _buildProviderInfo(size),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: size.height * .03, bottom: size.height * .02),
-                child: _buildLocationContainer(size),
               ),
             ],
           ),

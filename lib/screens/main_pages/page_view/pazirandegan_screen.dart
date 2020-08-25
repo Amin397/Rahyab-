@@ -80,7 +80,7 @@ class _PazirandeganState extends State<Pazirandegan>
     );
   }
 
-  Widget _gridMainItems(context, size) {
+  Widget _gridMainItems(context, Size size) {
     return Expanded(
       flex: 1,
       child: Container(
@@ -89,7 +89,7 @@ class _PazirandeganState extends State<Pazirandegan>
     );
   }
 
-  Widget _buildGridView(context, size) {
+  Widget _buildGridView(context, Size size) {
     return Container(
       child: Center(
         child: GridView.builder(

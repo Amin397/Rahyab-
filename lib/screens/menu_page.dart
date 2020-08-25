@@ -1,4 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:rahyab/Helper/AlertHelper.dart';
+import 'package:rahyab/Helper/NavHelper.dart';
+import 'package:rahyab/other/zoom_scaffold.dart';
+import 'package:rahyab/screens/card_management_screen.dart';
+import 'package:rahyab/screens/profile_screen.dart';
 
 class MenuScreen extends StatelessWidget {
 
@@ -7,6 +16,17 @@ class MenuScreen extends StatelessWidget {
     MenuItem(Icons.credit_card, 'مدیریت کارت'),
     MenuItem(Icons.assignment, 'صورتحساب'),
   ];
+
+//  Future<bool> onWillPop() {
+//    DateTime now = DateTime.now();
+//    if (currentBackPressTime == null ||
+//        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+//      currentBackPressTime = now;
+//      Fluttertoast.showToast(msg: exit_warning);
+//      return Future.value(false);
+//    }
+//    return Future.value(true);
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +41,18 @@ class MenuScreen extends StatelessWidget {
           children: <Widget>[
             _buildMenuProfilePic(size),
             Spacer(),
-            _buildMenuOption(size, (){}, Icons.person, 'پروفایل'),
-            _buildMenuOption(size, (){}, Icons.credit_card, 'مدیریت کارت'),
+            _buildMenuOption(size, (){
+              NavHelper.push(context, ProfileScreen());
+            }, Icons.person, 'پروفایل'),
+            _buildMenuOption(size, (){
+              NavHelper.push(context, CardManagementScreen());
+            }, Icons.credit_card, 'مدیریت کارت'),
             _buildMenuOption(size, (){}, Icons.assignment, 'صورتحساب'),
             Spacer(),
             _buildMenuOption(size, (){}, Icons.vpn_key, 'تغییر رمزعبور'),
-            _buildMenuOption(size, (){}, Icons.exit_to_app, 'خروج'),
+            _buildMenuOption(size, (){
+              AlertHelper.exitAlertDialog(context, (){exit(0);});
+            }, Icons.exit_to_app, 'خروج'),
           ],
         ),
       ),

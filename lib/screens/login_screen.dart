@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-
+import 'package:rahyab/Helper/NavHelper.dart';
 import 'mainScreen.dart';
 import 'register/sign_in_screen.dart';
 
@@ -108,10 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: EdgeInsets.only(top: (size.height * .7) * .1 , left: size.width * .1 , right:  size.width * .1 ),
       child: RaisedButton(
         onPressed: (){
-          Navigator.pushReplacement(
-              context,
-              PageTransition(
-                  type: PageTransitionType.upToDown, child: MyHomePage()));
+          NavHelper.pushR(context, MyHomePage());
         },
         splashColor: Colors.white,
         color: Color(0xff860d9b). withOpacity(.85),

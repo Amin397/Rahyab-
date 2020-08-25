@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
@@ -230,4 +231,95 @@ class AlertHelper {
     );
   }
 
+  static exitAlertDialog(context , func){
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) => Directionality(
+          textDirection: TextDirection.rtl,
+          child: AlertDialog(
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pop(context);
+                      func();
+                    },
+                    child: Container(
+                      height: 50.0,
+                      width: MediaQuery.of(context).size.width * .3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(35.0),
+                        color: Colors.redAccent,
+                      ),
+                      child: Center(
+                        child: Text('خروج' , style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'iranSance'
+                        ),),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+
+                      height: 50.0,
+                      width: MediaQuery.of(context).size.width * .3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(35.0),
+                        color: Colors.greenAccent,
+                      ),
+                      child: Center(
+                        child: Text('بازگشت' , style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'iranSance'
+                        ),),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+            scrollable: true,
+            backgroundColor: Colors.transparent,
+            elevation: 80.0,
+            content: Container(
+              padding: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0)
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    height: 60.0,
+                    child: Center(
+                      child: Icon(Icons.warning , size: 50.0, color: Colors.red[300],),
+                    ),
+                  ),
+                  Text('برای خروج مطمئنید !' , style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14.0,
+                      fontFamily: 'iranSance'
+                  ),)
+                ],
+              ),
+            ),
+          ),
+        )
+    );
+  }
 }
